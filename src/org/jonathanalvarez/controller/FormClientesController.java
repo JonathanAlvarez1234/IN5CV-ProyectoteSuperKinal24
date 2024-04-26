@@ -55,6 +55,14 @@ public class FormClientesController implements Initializable {
         }else if(event.getSource() == btnGuardar){
             
             if(op == 1){
+                if(tfNombre.getText().equals("") && tfApellido.getText().equals("") && !tfDireccion.getText().equals("")){
+                    agregarCliente();
+                    stage.menuClientesView();
+                }
+                
+                
+                
+                
                 agregarCliente();
             stage.menuClientesView();
             }else if(op == 2){
