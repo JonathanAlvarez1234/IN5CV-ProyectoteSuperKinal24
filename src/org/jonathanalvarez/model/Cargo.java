@@ -9,15 +9,15 @@ package org.jonathanalvarez.model;
  *
  * @author informatica
  */
-public class Cargos {
+public class Cargo {
     private int cargoId;
     private int nombreCargo;
     private int descripcionCargo;
 
-    public Cargos() {
+    public Cargo() {
     }
 
-    public Cargos(int cargoId, int nombreCargo, int descripcionCargo) {
+    public Cargo(int cargoId, int nombreCargo, int descripcionCargo) {
         this.cargoId = cargoId;
         this.nombreCargo = nombreCargo;
         this.descripcionCargo = descripcionCargo;
@@ -49,7 +49,7 @@ public class Cargos {
 
     @Override
     public String toString() {
-        return "Cargos{" + "cargoId=" + cargoId + ", nombreCargo=" + nombreCargo + ", descripcionCargo=" + descripcionCargo + '}';
+        return "Cargo{" + "cargoId=" + cargoId + ", nombreCargo=" + nombreCargo + ", descripcionCargo=" + descripcionCargo + '}';
     }
     
     
