@@ -14,7 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import org.jonathanalvarez.controller.FormCargosController;
 import org.jonathanalvarez.controller.FormClientesController;
+import org.jonathanalvarez.controller.MenuCargosController;
 import org.jonathanalvarez.controller.MenuClientesController;
 import org.jonathanalvarez.controller.MenuPrincipalController;
 import org.jonathanalvarez.controller.MenuTicketSoporteController;
@@ -106,6 +108,28 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    
+    public void menuCargosView(){
+        try{
+            MenuCargosController menuCargosView = (MenuCargosController)switchScene("MenuCargosView.fxml", 1200, 750);
+            menuCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void formCargosView(int op){
+        try{
+            FormCargosController formCargosView = (FormCargosController)switchScene("FormCargosView.fxml", 550, 850);
+            formCargosView.setOp(op);
+            formCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
+        }
     
     /**
      * @param args the command line arguments

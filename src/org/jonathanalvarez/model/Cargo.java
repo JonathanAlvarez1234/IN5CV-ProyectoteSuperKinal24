@@ -11,13 +11,13 @@ package org.jonathanalvarez.model;
  */
 public class Cargo {
     private int cargoId;
-    private int nombreCargo;
-    private int descripcionCargo;
+    private String nombreCargo;
+    private String descripcionCargo;
 
     public Cargo() {
     }
 
-    public Cargo(int cargoId, int nombreCargo, int descripcionCargo) {
+    public Cargo(int cargoId, String nombreCargo, String descripcionCargo) {
         this.cargoId = cargoId;
         this.nombreCargo = nombreCargo;
         this.descripcionCargo = descripcionCargo;
@@ -31,21 +31,23 @@ public class Cargo {
         this.cargoId = cargoId;
     }
 
-    public int getNombreCargo() {
+    public String getNombreCargo() {
         return nombreCargo;
     }
 
-    public void setNombreCargo(int nombreCargo) {
+    public void setNombreCargo(String nombreCargo) {
         this.nombreCargo = nombreCargo;
     }
 
-    public int getDescripcionCargo() {
+    public String getDescripcionCargo() {
         return descripcionCargo;
     }
 
-    public void setDescripcionCargo(int descripcionCargo) {
+    public void setDescripcionCargo(String descripcionCargo) {
         this.descripcionCargo = descripcionCargo;
     }
+
+    
 
     @Override
     public String toString() {
