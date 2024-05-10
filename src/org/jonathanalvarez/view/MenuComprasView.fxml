@@ -8,27 +8,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="593.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joaquinfigueroa.controller.MenuComprasController">
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jonathanalvarez.controller.MenuComprasController">
    <children>
-      <ImageView fitHeight="593.0" fitWidth="980.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="750.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/MenuComprasView.png" />
+            <Image url="@../image/FondoMenuCompras.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfCompraId" editable="false" layoutX="42.0" layoutY="130.0" prefHeight="26.0" prefWidth="181.0" promptText="Id de la compra" />
-      <TextField fx:id="tfFecha" layoutX="42.0" layoutY="244.0" prefHeight="18.0" prefWidth="181.0" />
-      <TextField fx:id="tfTotal" layoutX="42.0" layoutY="357.0" prefHeight="18.0" prefWidth="181.0" />
-      <TableView fx:id="tblCompras" layoutX="317.0" layoutY="121.0" onMouseClicked="#cargarDatosEditar" prefHeight="322.0" prefWidth="225.0">
+      <TextField fx:id="tfCompraId" editable="false" layoutX="691.0" layoutY="275.0" prefHeight="26.0" prefWidth="181.0" promptText="Id de la compra" />
+      <TextField fx:id="tfFecha" layoutX="691.0" layoutY="327.0" prefHeight="18.0" prefWidth="181.0" promptText="Ingrese la fecha" />
+      <TextField fx:id="tfTotal" layoutX="691.0" layoutY="377.0" prefHeight="18.0" prefWidth="181.0" promptText="Ingrese el Total" />
+      <TableView fx:id="tblCompras" layoutX="14.0" layoutY="166.0" onMouseClicked="#cargarDatosEditar" prefHeight="419.0" prefWidth="660.0">
         <columns>
-          <TableColumn fx:id="colCompraId" prefWidth="75.0" text="compraId" />
-          <TableColumn fx:id="colFecha" prefWidth="75.0" text="fecha" />
-            <TableColumn fx:id="colTotal" prefWidth="74.0" text="total" />
+          <TableColumn fx:id="colCompraId" prefWidth="220.0" text="compraId" />
+          <TableColumn fx:id="colFecha" prefWidth="220.0" text="fecha" />
+            <TableColumn fx:id="colTotal" prefWidth="220.0" text="total" />
         </columns>
       </TableView>
-      <Button fx:id="btnGuardar" layoutX="620.0" layoutY="163.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
-      <Button fx:id="btnEliminar" layoutX="620.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
-      <Button layoutX="620.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Reporte" />
-      <Button fx:id="btnRegresar" layoutX="620.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Regresar" />
-      <Button fx:id="btnVaciar" layoutX="620.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
+      <Button fx:id="btnGuardar" layoutX="973.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="126.0" style="-fx-background-radius: 10;" text="Guardar" />
+      <Button fx:id="btnEliminar" layoutX="973.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="126.0" style="-fx-background-radius: 10;" text="Eliminar" />
+      <Button layoutX="973.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="126.0" style="-fx-background-radius: 10;" text="Reporte" />
+      <Button fx:id="btnRegresar" layoutX="14.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="126.0" style="-fx-background-radius: 10;" text="Regresar" />
+      <Button fx:id="btnVaciar" layoutX="691.0" layoutY="515.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="126.0" style="-fx-background-radius: 10;" text="Vaciar" />
    </children>
 </AnchorPane>
