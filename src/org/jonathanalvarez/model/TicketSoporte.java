@@ -16,12 +16,11 @@ public class TicketSoporte {
     private String cliente;
     private int clienteId;
     private int facturaId;
-    
-    public TicketSoporte(){
-    
+
+    public TicketSoporte() {
     }
 
-    public TicketSoporte(int TicketSoporte, String descripcionTicket, String estatus, String cliente, int facturaId) {
+    public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, String cliente, int facturaId) {
         this.ticketSoporteId = ticketSoporteId;
         this.descripcionTicket = descripcionTicket;
         this.estatus = estatus;
@@ -29,7 +28,7 @@ public class TicketSoporte {
         this.facturaId = facturaId;
     }
 
-    public TicketSoporte(int TicketSoporte, String descripcionTicket, String estatus, int clienteId, int facturaId) {
+    public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, int clienteId, int facturaId) {
         this.ticketSoporteId = ticketSoporteId;
         this.descripcionTicket = descripcionTicket;
         this.estatus = estatus;
@@ -37,12 +36,12 @@ public class TicketSoporte {
         this.facturaId = facturaId;
     }
 
-    public int getTicketSoporte() {
+    public int getTicketSoporteId() {
         return ticketSoporteId;
     }
 
-    public void setTicketSoporte(int TicketSoporte) {
-        this.ticketSoporteId = TicketSoporte;
+    public void setTicketSoporteId(int ticketSoporteId) {
+        this.ticketSoporteId = ticketSoporteId;
     }
 
     public String getDescripcionTicket() {
@@ -87,7 +86,7 @@ public class TicketSoporte {
 
     @Override
     public String toString() {
-        return "TicketSoporte{" + "TicketSoporte=" + ticketSoporteId + ", descripcionTicket=" + descripcionTicket + ", estatus=" + estatus + ", cliente=" + cliente + ", clienteId=" + clienteId + ", facturaId=" + facturaId + '}';
+        return "TicketSoporte{" + "ticketSoporteId=" + ticketSoporteId + ", descripcionTicket=" + descripcionTicket + ", estatus=" + estatus + ", cliente=" + cliente + ", clienteId=" + clienteId + ", facturaId=" + facturaId + '}';
     }
     
     

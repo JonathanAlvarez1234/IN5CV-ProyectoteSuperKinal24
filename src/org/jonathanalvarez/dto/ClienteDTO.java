@@ -9,14 +9,13 @@ import org.jonathanalvarez.model.Cliente;
 
 /**
  *
- * @author HP
+ * @author informatica
  */
 public class ClienteDTO {
     private static ClienteDTO instance;
     private Cliente cliente;
-    
-    private ClienteDTO(){
-        
+
+    public ClienteDTO() {
     }
     
     public static ClienteDTO getClienteDTO(){
@@ -24,7 +23,7 @@ public class ClienteDTO {
             instance = new ClienteDTO();
         }
         return instance;
-    }
+    } 
 
     public Cliente getCliente() {
         return cliente;
@@ -33,7 +32,6 @@ public class ClienteDTO {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
     
     
 }

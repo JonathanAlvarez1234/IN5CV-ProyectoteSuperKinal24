@@ -1,7 +1,7 @@
 -- drop database if exists SuperKinalDB;
- 
+
 create database if not exists SuperKinalDB;
- 
+
 use SuperKinalDB;
 
 create table Clientes(
@@ -13,21 +13,21 @@ create table Clientes(
     nit varchar (15),
     primary key clienteId(clienteId)
 );
-
+ 
 create table Cargos(
 	cargoId int not null auto_increment,
     nombreCargo varchar(30) not null,
     descripcionCargo varchar(100) not null,
     primary key PK_cargoId (cargoId)
 );
-
+ 
 create table Compras(
 	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10, 2),
     primary key compraId(compraId)
 );
-
+ 
 create table Distribuidores(
 	distribuidorId int not null auto_increment,
     nombreDistribuidor varchar(30) not null,
@@ -37,8 +37,8 @@ create table Distribuidores(
     web varchar(50),
     Primary key PK_distribuidorId(distribuidorId)
 );
-
  
+
 create table Empleados(
 	empleadoId int not null auto_increment,
     nombreEmpleado varchar(30) not null,
@@ -54,14 +54,12 @@ create table Empleados(
 	constraint FK_Empleados_Cargos foreign key Cargos(cargoId)
 		references Cargos (cargoId)
 );
- 
 create table CategoriaProductos(
 	categoriaProductosId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100) not null,
     Primary key PK_categoriaProductosId(categoriaProductosId)
 );
- 
 create table Productos(
 	productoId int not null auto_increment,
     nombreProducto varchar(50),
@@ -79,7 +77,7 @@ create table Productos(
     constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos(categoriaProductosId)
 		references CategoriaProductos (categoriaProductosId)
 );
-
+ 
 create table DetalleCompras(
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,
@@ -91,11 +89,11 @@ create table DetalleCompras(
 	constraint FK_DetalleCompras_Compras foreign key (compraId)
 		references Compras(compraId)
 );
-
+ 
 create table Facturas(
 	facturaId int not null auto_increment,
     fecha date not null,
-    hora date not null,
+    hora time not null,
     clienteId int not null,
     empleadoId int not null,
     total decimal,
@@ -105,7 +103,7 @@ create table Facturas(
     constraint FK_Facturas_Empleados foreign key Empleados(empleadoId)
 		references Empleados (empleadoId)
 );
-
+ 
 create table DetalleFactura(
 	detalleFacturaId int not null auto_increment,
     facturaId int not null,
@@ -116,7 +114,7 @@ create table DetalleFactura(
     constraint FK_DetalleFactura_Productos foreign key Productos(productoId)
 		references Productos(productoId)
 );
-
+ 
 create table TicketSoporte(
 	ticketSoporteId int not null auto_increment,
     descripcionTicket varchar (250),
@@ -129,7 +127,6 @@ create table TicketSoporte(
 	constraint FK_TicketSoporte_Facturas foreign key TicketSoporte(facturaId)
 		references Facturas(facturaId)
 );
- 
 create table Promociones(
 	promocionId int not null auto_increment,
     precioPromocion decimal (10,2),
@@ -141,8 +138,7 @@ create table Promociones(
     constraint FK_Promociones_Productos foreign key Promociones(productoId)
 		references Productos (productoId)
 );
-
+ 
 insert into Clientes(nombre, apellido, telefono, direccion, nit, clienteId) values
-	('Rene', 'Oxcal', '1111-1111', 'Su casa', '45-45874525', 1),
-    ('Jorge', 'Peralta', '2222-2222', 'Su casa', '45-45965215', 2);
-
+	('Jose', 'Aguilar', '4545-5454', 'Quiche', '45217896-5', 1),
+    ('Rene', 'Monterroso', '8545-2541', 'Peten', '85742569-2', 2);

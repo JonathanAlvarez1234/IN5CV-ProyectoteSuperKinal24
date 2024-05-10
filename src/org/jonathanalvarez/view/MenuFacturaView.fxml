@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joaquinfigueroa.controller.MenuFacturaController">
+   <children>
+      <ImageView fitHeight="750.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FondoMenuFactura.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfFacturaId" editable="false" layoutX="8.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" promptText="Id de la factura" />
+      <TextField fx:id="tfHora" layoutX="14.0" layoutY="340.0" prefHeight="35.0" prefWidth="201.0" />
+      <ComboBox fx:id="cmbCliente" layoutX="364.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" />
+      <ComboBox fx:id="cmbEmpleado" layoutX="674.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" />
+      <TextField fx:id="tfTotal" editable="false" layoutX="990.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" promptText="TOTAL" />
+      <TableView fx:id="tblFacturas" layoutX="339.0" layoutY="272.0" onMouseClicked="#cargarDatosEditar" prefHeight="327.0" prefWidth="851.0">
+        <columns>
+          <TableColumn fx:id="colFacturaId" prefWidth="75.0" text="facturaId" />
+          <TableColumn fx:id="colFecha" prefWidth="162.0" text="fecha" />
+            <TableColumn fx:id="colHora" prefWidth="128.0" text="hora" />
+            <TableColumn fx:id="colTotal" prefWidth="126.0" text="total" />
+            <TableColumn fx:id="colCliente" prefWidth="178.0" text="cliente" />
+            <TableColumn fx:id="colEmpleado" prefWidth="181.0" text="empleado" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnVaciar" layoutX="990.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="121.0" style="-fx-background-radius: 10;" text="Vaciar" />
+      <Button fx:id="btnGuardar" layoutX="522.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="86.0" style="-fx-background-radius: 10;" text="Guardar" />
+      <Button fx:id="btnRegresar" layoutX="28.0" layoutY="609.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="134.0" style="-fx-background-radius: 10;" text="Regresar" />
+      <Button fx:id="btnEliminar" layoutX="789.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="86.0" style="-fx-background-radius: 10;" text="Eliminar" />
+      <TextField fx:id="tfFecha" layoutX="14.0" layoutY="469.0" prefHeight="35.0" prefWidth="201.0" />
+      <Button fx:id="btnTotal" layoutX="655.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="86.0" style="-fx-background-radius: 10;" text="Total" />
+   </children>
+</AnchorPane>

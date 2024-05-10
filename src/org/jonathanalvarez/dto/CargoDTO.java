@@ -9,13 +9,13 @@ import org.jonathanalvarez.model.Cargo;
 
 /**
  *
- * @author informatica
+ * @author HP
  */
 public class CargoDTO {
     private static CargoDTO instance;
     private Cargo cargo;
 
-    private CargoDTO() {
+    public CargoDTO() {
     }
     
     public static CargoDTO getCargoDTO(){
@@ -32,4 +32,10 @@ public class CargoDTO {
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
+
+    
+
+    
+    
+    
 }

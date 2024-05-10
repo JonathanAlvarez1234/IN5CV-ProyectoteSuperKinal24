@@ -9,14 +9,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author HP
- */
 public class Conexion {
     private static Conexion instance;
     
-    private String url = "jdbc:mysql://localhost:3306/SuperKinalDB?serverTimeZone=GMT-6&useSSL=false";
+    private String url = "jdbc:mysql://localhost:3306/SuperKinalDB?serverTimezone=GMT-6&useSSL=false";
     private String user = "jonathanAlvarez";
     private String password = "Jooni-200716j";
     
@@ -38,5 +34,4 @@ public class Conexion {
     public Connection obtenerConexion()throws SQLException{
         return DriverManager.getConnection(url, user, password);
     }
-
 }

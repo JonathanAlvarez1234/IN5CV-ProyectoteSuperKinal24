@@ -7,7 +7,7 @@ package org.jonathanalvarez.model;
 
 /**
  *
- * @author informatica
+ * @author HP
  */
 public class Cargo {
     private int cargoId;
@@ -47,12 +47,11 @@ public class Cargo {
         this.descripcionCargo = descripcionCargo;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Cargo{" + "cargoId=" + cargoId + ", nombreCargo=" + nombreCargo + ", descripcionCargo=" + descripcionCargo + '}';
+        return "Id: "+ cargoId + " - " + nombreCargo;
     }
+    
     
     
 }
