@@ -6,7 +6,6 @@
 package org.jonathanalvarez.system;
 
 import java.io.IOException;
-import org.jonathanalvarez.controller.MenuEditarCargosController;
 import org.jonathanalvarez.controller.FormDistribuidoresController;
 import org.jonathanalvarez.controller.MenuCategoriaProductosController;
 import org.jonathanalvarez.controller.MenuDetalleFacturaController;
@@ -33,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jonathanalvarez.controller.FormCargosController;
 
 
 
@@ -90,6 +90,7 @@ public class Main extends Application {
             menuClientesView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -100,6 +101,7 @@ public class Main extends Application {
             formClientesView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -121,10 +123,10 @@ public class Main extends Application {
         }
     }
     
-    public void menuEditarCargosView(){
+    public void formCargosView(){
         try{
-            MenuEditarCargosController menuEditarCargosView = (MenuEditarCargosController)switchScene("MenuEditarCargosView.fxml", 1200, 750);
-            menuEditarCargosView.setStage(this);
+            FormCargosController formCargosView = (FormCargosController)switchScene("FormCargosView.fxml", 550, 850);
+            formCargosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

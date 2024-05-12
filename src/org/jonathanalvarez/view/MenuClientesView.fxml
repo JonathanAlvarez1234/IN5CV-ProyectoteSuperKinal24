@@ -46,9 +46,9 @@
          </children>
       </GridPane>
       <Button fx:id="btnRegresar" layoutX="29.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="103.0" text="Regresar" />
-      <TextField fx:id="tfClienteId" layoutX="334.0" layoutY="28.0" prefHeight="23.0" prefWidth="255.0" promptText="Ingrese el ID del cliente a buscar" />
-      <Button fx:id="btnBuscar" layoutX="600.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="40.0" />
-      <ImageView disable="true" fitHeight="25.0" fitWidth="28.0" layoutX="608.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+      <TextField fx:id="tfClienteId" layoutX="354.0" layoutY="146.0" prefHeight="23.0" prefWidth="255.0" promptText="Ingrese el ID del cliente a buscar" />
+      <Button fx:id="btnBuscar" layoutX="613.0" layoutY="144.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="40.0" />
+      <ImageView disable="true" fitHeight="25.0" fitWidth="28.0" layoutX="621.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true" smooth="false">
          <image>
             <Image url="@../image/Lupa.png" />
          </image>

@@ -27,7 +27,7 @@ import org.jonathanalvarez.system.Main;
  *
  * @author HP
  */
-public class MenuEditarCargosController implements Initializable {
+public class FormCargosController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -48,16 +48,12 @@ public class MenuEditarCargosController implements Initializable {
     @FXML
     Button btnCancelar, btnAgregar;
     
-    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle resources) {
         if(CargoDTO.getCargoDTO().getCargo() != null){
             cargarDatos(CargoDTO.getCargoDTO().getCargo());
         }
     }    
-    
-    
-    
     
     public void editarCargo(){
          try{

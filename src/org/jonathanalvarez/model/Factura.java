@@ -34,15 +34,18 @@ public class Factura {
         this.empleadoId = empleadoId;
     }
 
-    public Factura(int facturaId,  LocalDate fecha, LocalTime hora, double total ,String cliente, String empleado) {
+    public Factura(int facturaId,  LocalDate fecha, LocalTime hora, String cliente, String empleado, double total) {
         this.facturaId = facturaId;
         this.fecha = fecha;
         this.hora = hora;
-        this.total = total;
         this.cliente = cliente;
         this.empleado = empleado;
+        this.total = total;
+
  
     }
+    
+    
     
 
     public int getFacturaId() {

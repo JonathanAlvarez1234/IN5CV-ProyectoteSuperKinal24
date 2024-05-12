@@ -142,7 +142,7 @@ public class MenuCargosController implements Initializable {
             stage.menuPrincipalView();
         }else if(event.getSource() == btnEditar){
             CargoDTO.getCargoDTO().setCargo((Cargo)tblCargos.getSelectionModel().getSelectedItem());
-            stage.menuEditarCargosView();
+            stage.formCargosView();
         }
     }
     

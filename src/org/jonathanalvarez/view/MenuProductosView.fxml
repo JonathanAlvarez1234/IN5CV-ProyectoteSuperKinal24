@@ -19,7 +19,7 @@
       </ImageView>
       <TextField fx:id="tfNombre" layoutX="297.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
       <TextField fx:id="tfStock" layoutX="1041.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
-      <TextField fx:id="tfPunitario" layoutX="507.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
+      <TextField fx:id="tfPUnitario" layoutX="507.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
       <TextField fx:id="tfPMayor" layoutX="687.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
       <TextField fx:id="tfPCompra" layoutX="866.0" layoutY="204.0" prefHeight="25.0" prefWidth="152.0" />
       <TextArea fx:id="taDescripcion" layoutX="14.0" layoutY="306.0" prefHeight="114.0" prefWidth="239.0" />
@@ -46,10 +46,12 @@
             <Image url="@../image/Lupa.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnGuardar" layoutX="687.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="96.0" style="-fx-background-radius: 10;" text="Guardar" />
+      <Button fx:id="btnAgregar" layoutX="687.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="96.0" style="-fx-background-radius: 10;" text="Guardar" />
       <Button fx:id="btnReporte" layoutX="1063.0" layoutY="621.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="96.0" style="-fx-background-radius: 10;" text="Reporte" />
       <Button fx:id="btnEliminar" layoutX="960.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="96.0" style="-fx-background-radius: 10;" text="Eliminar" />
       <Button fx:id="btnVaciar" layoutX="808.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="96.0" style="-fx-background-radius: 10;" text="Vaciar" />
       <Button fx:id="btnRegresar" layoutX="24.0" layoutY="673.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="152.0" style="-fx-background-radius: 10;" text="Regresar" />
+      <ImageView fx:id="imgMostrar" fitHeight="114.0" fitWidth="165.0" layoutX="284.0" layoutY="621.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgCargar" fitHeight="114.0" fitWidth="165.0" layoutX="460.0" layoutY="621.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

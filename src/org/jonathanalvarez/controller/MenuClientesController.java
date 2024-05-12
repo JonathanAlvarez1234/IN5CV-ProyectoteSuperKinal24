@@ -143,7 +143,7 @@ public class MenuClientesController implements Initializable {
                 String apellido = resultset.getString("apellido");
                 String telefono = resultset.getString("telefono");
                 String direccion = resultset.getString("direccion");
-                String NIT = resultset.getString("NIT");
+                String NIT = resultset.getString("nit");
                 
                 cliente = (new Cliente(clienteId, nombre, apellido, telefono, direccion, NIT));
             }
@@ -206,7 +206,7 @@ public class MenuClientesController implements Initializable {
                 colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
                 colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
                 colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
-                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
+                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nit"));
             }
         }
     }   
