@@ -29,7 +29,6 @@ import org.jonathanalvarez.model.CategoriaProducto;
  * @author informatica
  */
 public class FormCategoriaProductosController implements Initializable {
-
     private Main stage;    
     private int op;
     private static Connection conexion;
@@ -99,7 +98,7 @@ public class FormCategoriaProductosController implements Initializable {
     public void agregarCategoriaProductos(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarCategoriaProductos(?,?)";
+            String sql = "call sp_agregarCategoriaProducto(?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfNombreCategoria.getText());
             statement.setString(2, taDescripcionCategoria.getText());
@@ -121,7 +120,7 @@ public class FormCategoriaProductosController implements Initializable {
     public void editarCategoriaProductos(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarCategoriaProductos(?,?,?)";
+            String sql = "call sp_editarCategoriaProducto(?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfCategoriaProductosId.getText()));
             statement.setString(2, tfNombreCategoria.getText());
@@ -143,5 +142,4 @@ public class FormCategoriaProductosController implements Initializable {
             }
         }
     }
-    
 }

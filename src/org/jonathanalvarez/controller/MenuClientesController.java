@@ -90,17 +90,21 @@ public class MenuClientesController implements Initializable {
         }
         return FXCollections.observableList(clientes);
     }
-    
-    
-    
+
     public void cargarLista(){
-        tblClientes.setItems(listarClientes());
+        try{
+            tblClientes.setItems(listarClientes());
         colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
         colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
         colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
         colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
 
 
     }
@@ -206,10 +210,10 @@ public class MenuClientesController implements Initializable {
                 colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
                 colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
                 colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
-                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nit"));
+                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
             }
         }
-    }   
+    }
 } 
     
 

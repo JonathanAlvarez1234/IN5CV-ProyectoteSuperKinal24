@@ -5,34 +5,16 @@
  */
 package org.jonathanalvarez.system;
 
-import java.io.IOException;
-import org.jonathanalvarez.controller.FormDistribuidoresController;
-import org.jonathanalvarez.controller.MenuCategoriaProductosController;
-import org.jonathanalvarez.controller.MenuDetalleFacturaController;
-import org.jonathanalvarez.controller.MenuProductosController;
-import org.jonathanalvarez.controller.MenuPromocionesController;
-import org.jonathanalvarez.controller.MenuPrincipalController;
-import org.jonathanalvarez.controller.MenuEmpleadosController;
-import org.jonathanalvarez.controller.MenuComprasController;
-import org.jonathanalvarez.controller.FormEmpleadosController;
-import org.jonathanalvarez.controller.FormCategoriaProductosController;
-import org.jonathanalvarez.controller.FormClientesController;
-import org.jonathanalvarez.controller.MenuDistribuidoresController;
-import org.jonathanalvarez.controller.MenuCargosController;
-import org.jonathanalvarez.controller.MenuFacturaController;
-import org.jonathanalvarez.controller.MenuTicketSoporteController;
-import org.jonathanalvarez.controller.MenuClientesController;
 import java.io.InputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.jonathanalvarez.controller.FormCargosController;
+import org.jonathanalvarez.controller.* ;
 
 
 
@@ -47,12 +29,9 @@ public class Main extends Application {
     private final String URLVIEW = "/org/jonathanalvarez/view/";
     
     @Override
-    public void start(Stage stage) throws IOException{
-        
-        
+    public void start(Stage stage){
         this.stage = stage;
-        
-        stage.setTitle("Super Kinal APP");
+        stage.setTitle("Super Kinal");
         menuPrincipalView();
         stage.show();
     }
@@ -81,6 +60,7 @@ public class Main extends Application {
             
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -111,6 +91,7 @@ public class Main extends Application {
             menuTicketSoporteView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -120,6 +101,7 @@ public class Main extends Application {
             menuCargosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -129,6 +111,7 @@ public class Main extends Application {
             formCargosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -138,6 +121,7 @@ public class Main extends Application {
             menuDistribuidoresView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -148,6 +132,7 @@ public class Main extends Application {
             formDistribuidoresView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -157,6 +142,7 @@ public class Main extends Application {
             menuCategoriaProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -167,6 +153,7 @@ public class Main extends Application {
             formCategoriaProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -176,6 +163,7 @@ public class Main extends Application {
             menuEmpleadosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -186,6 +174,7 @@ public class Main extends Application {
             formEmpleadosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -195,6 +184,7 @@ public class Main extends Application {
             menuFacturaView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -204,6 +194,7 @@ public class Main extends Application {
             menuComprasView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -213,6 +204,7 @@ public class Main extends Application {
             menuPromocionesview.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -222,6 +214,7 @@ public class Main extends Application {
             menuProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -231,6 +224,7 @@ public class Main extends Application {
             menuDetalleFacturasView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
    
@@ -241,10 +235,5 @@ public class Main extends Application {
        
         launch(args);
     }
-
-
-   
-
-
     
 }

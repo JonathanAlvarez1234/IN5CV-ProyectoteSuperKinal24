@@ -79,8 +79,10 @@ public class MenuFacturaController implements Initializable {
     
     
     public void vaciarCampos(){
-        tfFacturaId.clear();
         tfFecha.clear();
+        tfFacturaId.clear();
+        tfHora.clear();
+        tfTotal.clear();
         cmbCliente.getSelectionModel().clearSelection();
         cmbEmpleado.getSelectionModel().clearSelection();
         
@@ -90,7 +92,7 @@ public class MenuFacturaController implements Initializable {
         tblFacturas.setItems(listarFacturas());
         colFacturaId.setCellValueFactory(new PropertyValueFactory<Factura, Integer>("facturaId"));
         colFecha.setCellValueFactory(new PropertyValueFactory<Factura, LocalDate>("fecha"));
-        colHora.setCellValueFactory(new PropertyValueFactory<Factura, LocalTime>("hora"));       
+        colHora.setCellValueFactory(new PropertyValueFactory<Factura, LocalTime>("hora"));
         colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("cliente"));
         colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleado"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Factura, Double>("total"));
@@ -138,7 +140,7 @@ public class MenuFacturaController implements Initializable {
         ArrayList<Factura> facturas = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarFacturas()";
+            String sql = "call sp_listarFactura()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -217,7 +219,7 @@ public class MenuFacturaController implements Initializable {
         ArrayList<Empleado> empleados = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleados()";
+            String sql = "call sp_listarEmpleado()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -257,14 +259,14 @@ public class MenuFacturaController implements Initializable {
     public void agregarFacturas(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarFacturas(?, ?, ?, ?, ?)";
+            String sql = "call sp_agregarFactura(?, ?, ?, ?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setDate(1, Date.valueOf(LocalDate.now()));
             statement.setTime(2, Time.valueOf(LocalTime.now()));
             statement.setInt(3, ((Cliente)cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(4, ((Empleado)cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
             statement.setDouble(5, 0);
-
+            
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -286,7 +288,7 @@ public class MenuFacturaController implements Initializable {
     public void editarFacturas(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarFacturas(?, ?, ?, ?, ?, ?)";
+            String sql = "call sp_editarFactura(?, ?, ?, ?, ?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfFacturaId.getText()));
             statement.setDate(2, Date.valueOf(tfFecha.getText()));
@@ -311,10 +313,6 @@ public class MenuFacturaController implements Initializable {
         }
     }
      
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cmbCliente.setItems(listarClientes());
@@ -332,6 +330,7 @@ public class MenuFacturaController implements Initializable {
     public void setStage(Main stage) {
         this.stage = stage;
     }
+
     
     
 }

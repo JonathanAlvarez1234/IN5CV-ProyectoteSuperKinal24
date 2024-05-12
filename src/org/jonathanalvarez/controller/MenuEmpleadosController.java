@@ -63,7 +63,7 @@ public class MenuEmpleadosController implements Initializable {
         ArrayList<Empleado> empleados = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleados()";
+            String sql = "call sp_listarEmpleado()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -118,7 +118,7 @@ public class MenuEmpleadosController implements Initializable {
     public void eliminarEmpleados(int empId){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_eliminarEmpleados(?)";
+            String sql = "call sp_eliminarEmpleado(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, empId);
             statement.execute();
@@ -142,7 +142,7 @@ public class MenuEmpleadosController implements Initializable {
         Empleado empleado = null;
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_buscarEmpleados(?)";
+            String sql = "call sp_buscarEmpleado(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1 ,Integer.parseInt(tfEmpleadosId.getText()));
             resultset = statement.executeQuery();

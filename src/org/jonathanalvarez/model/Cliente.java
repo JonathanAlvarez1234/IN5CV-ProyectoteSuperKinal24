@@ -76,7 +76,7 @@ public class Cliente {
     public void setNIT(String NIT) {
         this.NIT = NIT;
     }
-
+    
     @Override
     public String toString() {
         return "Id: " + clienteId + " - " + nombre + " " + apellido;

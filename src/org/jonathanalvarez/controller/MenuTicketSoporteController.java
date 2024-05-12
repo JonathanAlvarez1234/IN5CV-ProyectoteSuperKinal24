@@ -252,9 +252,6 @@ public class MenuTicketSoporteController implements Initializable {
         }
     }
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarCMBEstatus();

@@ -57,7 +57,7 @@ public class MenuDistribuidoresController implements Initializable {
         ArrayList<Distribuidor> distribuidores = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarDistribuidores()";
+            String sql = "call sp_listarDistribuidor()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             

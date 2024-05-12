@@ -66,10 +66,6 @@ public class FormClientesController implements Initializable {
         this.op = op;
     }
     
-    
-    
-    
-    
     @FXML
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnCancelar){
@@ -142,12 +138,5 @@ public class FormClientesController implements Initializable {
                 System.out.println(e.getMessage());
             }
         }
-    }
-    
-    
-    
-    
-    
-    
-    
+    } 
 }
