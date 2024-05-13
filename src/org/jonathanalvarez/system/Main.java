@@ -31,7 +31,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage){
         this.stage = stage;
-        stage.setTitle("Super Kinal");
+        Image icon = new Image("org/jonathanalvarez/image/Icon.png");
+        stage.getIcons().add(icon);
+        stage.setTitle("Super Kinal APP");
         menuPrincipalView();
         stage.show();
     }
