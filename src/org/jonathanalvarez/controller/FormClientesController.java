@@ -32,7 +32,7 @@ public class FormClientesController implements Initializable {
     private static PreparedStatement statement;
     
     @FXML
-    Button btnCancelar, btnAgregar;
+    Button btnAgregar, btnCancelar ;
     
     @FXML
     TextField tfClienteId, tfNombre, tfApellido, tfTelefono, tfDireccion, tfNIT;
