@@ -175,3 +175,21 @@ begin
  
 end $$
 delimiter ;
+
+-- SP Agregar Usuario
+delimiter $$
+create procedure sp_agregarUsuario(us varchar(30), pas varchar(100), nivAId int, empId int)
+begin
+	insert into Usuarios(usuario, pass, nivelAccesoId, empleadoId) values
+		(us, pas, nivAId, empId);
+end $$
+delimiter ;
+
+-- SP Buscar Usuario
+delimiter $$
+create procedure sp_buscarUsuario(us varchar(30))
+begin
+	select * from Usuarios
+		where usuario = us;
+end $$
+delimiter ;

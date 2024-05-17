@@ -74,8 +74,8 @@ public class MenuEmpleadosController implements Initializable {
                 double sueldo = resultset.getDouble("sueldo");
                 String horaEntrada = resultset.getString("horaEntrada");
                 String horaSalida = resultset.getString("horaSalida");
-                String cargo = resultset.getString("nombreCargo");
-                String encargado = resultset.getString("encargado");
+                String cargo = resultset.getString("cargoId");
+                String encargado = resultset.getString("encargadoId");
 
                 empleados.add(new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
             }
@@ -110,8 +110,8 @@ public class MenuEmpleadosController implements Initializable {
         colSueldo.setCellValueFactory(new PropertyValueFactory<Empleado, Double>("sueldo"));
         colEntrada.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaEntrada"));
         colSalida.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaSalida"));
-        colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargo"));
-        colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargado"));
+        colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargoId"));
+        colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargadoId"));
 
     }
     
@@ -154,8 +154,8 @@ public class MenuEmpleadosController implements Initializable {
                 double sueldo = resultset.getDouble("sueldo");
                 String horaEntrada = resultset.getString("horaEntrada");
                 String horaSalida = resultset.getString("horaSalida");
-                String cargo = resultset.getString("cargo");
-                String encargado = resultset.getString("encargado");
+                String cargo = resultset.getString("cargoId");
+                String encargado = resultset.getString("encargadoId");
                 
                 empleado = (new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
             }
@@ -213,7 +213,7 @@ public class MenuEmpleadosController implements Initializable {
                 colSueldo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("sueldo"));
                 colEntrada.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaEntrada"));
                 colSalida.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaSalida"));
-                colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargo"));
+                colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargoId"));
                 colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargadoId"));
             }
         }

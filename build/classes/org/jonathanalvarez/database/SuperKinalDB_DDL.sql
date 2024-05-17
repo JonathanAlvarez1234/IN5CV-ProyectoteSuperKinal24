@@ -138,6 +138,30 @@ create table Promociones(
     constraint FK_Promociones_Productos foreign key Promociones(productoId)
 		references Productos (productoId)
 );
+
+-- NivelesAcceso: Contener los roles de los usuarios
+create table NivelesAcceso(
+	nivelAccesoId int not null auto_increment,
+    nivelAcceso varchar(40) not null,
+    primary key PK_nivelAccesoId(nivelAccesoId)
+);
+
+-- Usuarios: Almacenar los ususarios del programa(usuario, conttraseña, nivelAcceso)
+create table Usuarios(
+	usuarioId int not null auto_increment,
+    usuario varchar(30) not null,
+    pass varchar(100) not null,
+    nivelAccesoId int not null,
+    empleadoId int not null,
+    primary key PKusuarioId(usuarioId),
+    constraint FK_Usuarios_NivelesAcceso foreign key Usuarios(nivelAccesoId)
+		references NivelesAcceso(nivelAccesoId),
+	constraint FK_Usuarios_Empleados foreign key Usuarios(empleadoId)
+		references Empleados(empleadoId)
+);
+
+
+
  
 insert into Clientes(nombre, apellido, telefono, direccion, nit, clienteId) values
 	('Jose', 'Aguilar', '4545-5454', 'Quiche', '45217896-5', 1),
