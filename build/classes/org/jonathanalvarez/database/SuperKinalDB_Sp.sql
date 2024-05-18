@@ -74,10 +74,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarCargo()
 BEGIN
-	select
-		Cargos.nombreCargo,
-		Cargos.descripcionCargo
-		from Cargos;
+	select * from Cargos;
 END $$
 DELIMITER ;
 
@@ -180,14 +177,7 @@ delimiter ;
 delimiter $$
 create procedure sp_listarDistribuidor()
 	begin
-		select
-			D.distribuidorId,
-			D.nombreDistribuidor,
-			D.direccionDistribuidor,
-			D.nitDistribuidor,
-			D.telefonoDistribuidor,
-			D.web
-				from Distribuidores D;
+		select * from Distribuidores;
     end $$
 delimiter ;
 
@@ -225,27 +215,22 @@ create procedure sp_editarDistribuidor(in disId int, in nomD varchar(30), in dir
     end $$
 delimiter ;
 
+-- ==========================================================================================================================================================================
+-- ==========================================================================================================================================================================
+
 -- *** Empleados *** --
 DELIMITER $$
-create procedure sp_agregarEmpleado(nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int)
+create procedure sp_agregarEmpleado(nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int, encId int)
 BEGIN
-	insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId) values
-		(nomEmp, apeEmp, sue, horEnt, horSal, carId);
+	insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId, encargadoId) values
+		(nomEmp, apeEmp, sue, horEnt, horSal, carId, encId);
 END $$
 DELIMITER ;
 
 DELIMITER $$
 create procedure sp_listarEmpleado()
 BEGIN
-	select
-		Empleados.nombreEmpleado,
-        Empleados.apellidoEmpleado,
-        Empleados.sueldo,
-        Empleados.horaEntrada,
-        Empleados.horaSalida,
-        Empleados.cargoId,
-        Empleados.encargadoId
-        from Empleados;
+	select * from Empleados;
 END $$
 DELIMITER ;
 
@@ -308,11 +293,7 @@ delimiter ;
 delimiter $$
 create procedure sp_listarCategoriaProducto()
 	begin
-		select
-			C.categoriaProductoId,
-            C.nombreCategoria,
-            C.descripcionCategoria
-				from CategoriaProductos C;
+		select * from CategoriaProductos;
     end $$
 delimiter ;
 
@@ -355,7 +336,7 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
 	begin
-		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
+		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductoId ) values
 			(nom, des, can, preU, preM, preC, ima, disId, catId);
 	end $$
 delimiter ;
@@ -393,14 +374,14 @@ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varch
 		update Productos	
 			set 
             nombreProducto = nom,
-            descripcionProduto = des,
+            descripcionProducto = des,
             cantidadStock = can,
             precioVentaUnitario = preU,
             precioVentaMayor = preM,
             precioCompra = preC,
             imagenProducto = ima,
             distribuidorId = disId,
-            categoriaProductosId = catId
+            categoriaProductoId = catId
             where productoId = proId;
     end $$
 delimiter ;
@@ -422,12 +403,7 @@ delimiter ;
 delimiter $$
 create procedure sp_listarDetalleCompra()
 	begin
-		select
-			D.detalleCompraId,
-            D.cantidadCompra,
-            D.productoId,
-            D.compraId
-				from DetalleCompras D;
+		select * from DetalleCompras;
     end $$
 delimiter ;
 
@@ -479,12 +455,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarFactura()
 BEGIN
-	select
-		Facturas.fecha,
-		Facturas.hora,
-        Facturas.clienteId,
-        Facturas.empleadoId
-		from Facturas;
+	select * from Facturas;
 END $$
 DELIMITER ;
 
@@ -540,11 +511,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
 begin
-	select 
-		DetalleFactura.detalleFacturaId,
-        DetalleFactura.facturaId,
-        DetalleFactura.productoId
-			from DetalleFactura;
+	select * from DetalleFactura;
 end $$
 DELIMITER ;
  
@@ -669,13 +636,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarPromociones()
 	begin
-		select
-			Promociones.promocionId,
-			Promociones.precioPromocion,
-			Promociones.fechaInicio,
-			Promociones.fechaFinalizacion,
-			Promociones.productoId
-				from Promociones;
+		select * from Promociones;
  
 	end $$
 DELIMITER ;
@@ -719,8 +680,8 @@ create procedure sp_editarPromociones(in promId int, pre decimal (10,2), des var
 				precioPromocion = pre,
 				descripcionPromocion = des,
 				fechaInicio = fecI,
-				fechFinalizacion = fecF,
-				profuctoId = proId
+				fechaFinalizacion = fecF,
+				productoId = proId
 					where promocionId = promId;
 	END $$
 DELIMITER ;
@@ -740,7 +701,46 @@ create procedure sp_editarEncargado(empId int, encId int)
 	END $$
 DELIMITER ;
 
-
+-- ----------------------------------------------------------------------------------------------
+call sp_listarCargo();
+call sp_agregarCargo('Gerente', 'Supervisar las compras');
+call sp_editarCargo(1,'xd','xd');
+call sp_buscarCargo(1);
+-- ----------------------------------------------------------------------------------------------
+call sp_listarCompra();
+ 
+-- ----------------------------------------------------------------------------------------------
+call sp_listarCategoriaProducto();
+call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
+call sp_editarCategoriaProducto(1, 'Hola', 'si');
+call sp_buscarCategoriaProducto(1);
+call sp_eliminarCategoriaProducto(2);
+-- ----------------------------------------------------------------------------------------------
+call sp_listarDistribuidor();
+call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
+call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
+call sp_buscarDistribuidor(1);
+call sp_eliminarDistribuidor(2);
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
+-- ----------------------------------------------------------------------------------------------
+call sp_listarCliente();
+call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
+call sp_editarCliente(1,'2','2','2','2','2');
+-- ----------------------------------------------------------------------------------------------
+ 
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarTicketSoporte('Problemas con la red',1,null);
+-- ----------------------------------------------------------------------------------------------
+call sp_listarProducto();	
+call sp_editarProducto(1, 's', 'i', 9.00, 5.00,5.77,4.66, null, 1, 1);
+call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 ,  80.7, 70.00, 85.00 ,null ,  1 ,  1 );
+-- ----------------------------------------------------------------------------------------------
+call sp_listarPromociones();
+call sp_agregarPromociones('50.00', 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
+call sp_editarPromociones(1,  '30.5','d','2024-03-03', '2024-03-03',1);
+-- ----------------------------------------------------------------------------------------------
+call sp_listarDetalleCompra();
  
  
 set global time_zone = '-6:00';

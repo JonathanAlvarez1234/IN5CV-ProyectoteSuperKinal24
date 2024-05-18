@@ -51,6 +51,34 @@ public class MenuClientesController implements Initializable {
     @FXML
     TextField tfClienteId;
     
+    @FXML
+    public void handleButtonAction(ActionEvent event){
+        if(event.getSource() == btnAgregar){
+            stage.formClientesView(1);
+        }else if(event.getSource() == btnEditar){
+            ClienteDTO.getClienteDTO().setCliente((Cliente)tblClientes.getSelectionModel().getSelectedItem());
+            stage.formClientesView(2);
+        }else if(event.getSource() == btnRegresar){
+            stage.menuPrincipalView();
+        }else if(event.getSource() == btnEliminar){
+            int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
+            eliminarCliente(cliId);
+            cargarLista();
+        }else if (event.getSource() == btnBuscar){
+            tblClientes.getItems().clear();
+            if(tfClienteId.getText().equals("")){
+                cargarLista();
+            }else{
+                tblClientes.getItems().add(buscarCliente());
+                colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
+                colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
+                colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
+                colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
+                colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
+                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
+            }
+        }
+    }
     
     public ObservableList<Cliente> listarClientes(){
         ArrayList<Cliente> clientes = new ArrayList<>();
@@ -93,7 +121,7 @@ public class MenuClientesController implements Initializable {
 
     public void cargarLista(){
         try{
-            tblClientes.setItems(listarClientes());
+        tblClientes.setItems(listarClientes());
         colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
         colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
         colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
@@ -185,35 +213,7 @@ public class MenuClientesController implements Initializable {
         cargarLista();
     }    
     
-    @FXML
     
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource() == btnAgregar){
-            stage.formClientesView(1);
-        }else if(event.getSource() == btnEditar){
-            ClienteDTO.getClienteDTO().setCliente((Cliente)tblClientes.getSelectionModel().getSelectedItem());
-            stage.formClientesView(2);
-        }else if(event.getSource() == btnRegresar){
-            stage.menuPrincipalView();
-        }else if(event.getSource() == btnEliminar){
-            int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
-            eliminarCliente(cliId);
-            cargarLista();
-        }else if (event.getSource() == btnBuscar){
-            tblClientes.getItems().clear();
-            if(tfClienteId.getText().equals("")){
-                cargarLista();
-            }else{
-                tblClientes.getItems().add(buscarCliente());
-                colClienteId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("clienteId"));
-                colNombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
-                colApellido.setCellValueFactory(new PropertyValueFactory<Cliente, String>("apellido"));
-                colTelefono.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefono"));
-                colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
-                colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
-            }
-        }
-    }
 } 
     
 

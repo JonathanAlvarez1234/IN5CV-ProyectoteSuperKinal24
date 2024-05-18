@@ -54,11 +54,12 @@ create table Empleados(
 	constraint FK_Empleados_Cargos foreign key Cargos(cargoId)
 		references Cargos (cargoId)
 );
+
 create table CategoriaProductos(
-	categoriaProductosId int not null auto_increment,
+	categoriaProductoId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100) not null,
-    Primary key PK_categoriaProductosId(categoriaProductosId)
+    Primary key PK_categoriaProductoId(categoriaProductoId)
 );
 create table Productos(
 	productoId int not null auto_increment,
@@ -70,12 +71,12 @@ create table Productos(
     precioCompra decimal(10, 2) not null,
     imagenProducto blob,
     distribuidorId int not null,
-    categoriaProductosId int not null,
+    categoriaProductoId int not null,
     primary key PK_productoId(productoId),
     constraint FK_Productos_Distribuidores foreign key Distribuidores(distribuidorId)
 	references Distribuidores(distribuidorId),
-    constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos(categoriaProductosId)
-		references CategoriaProductos (categoriaProductosId)
+    constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos(categoriaProductoId)
+		references CategoriaProductos (categoriaProductoId)
 );
  
 create table DetalleCompras(

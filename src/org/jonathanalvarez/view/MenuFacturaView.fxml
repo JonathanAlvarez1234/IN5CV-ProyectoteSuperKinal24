@@ -20,7 +20,7 @@
       <TextField fx:id="tfHora" layoutX="14.0" layoutY="340.0" prefHeight="35.0" prefWidth="201.0" />
       <ComboBox fx:id="cmbCliente" layoutX="364.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" />
       <ComboBox fx:id="cmbEmpleado" layoutX="674.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" />
-      <TextField fx:id="tfTotal" editable="false" layoutX="990.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" promptText="TOTAL" />
+      <TextField fx:id="tfTotal" layoutX="990.0" layoutY="216.0" prefHeight="35.0" prefWidth="201.0" promptText="TOTAL" />
       <TableView fx:id="tblFacturas" layoutX="339.0" layoutY="272.0" onMouseClicked="#cargarDatosEditar" prefHeight="327.0" prefWidth="851.0">
         <columns>
           <TableColumn fx:id="colFacturaId" prefWidth="75.0" text="facturaId" />

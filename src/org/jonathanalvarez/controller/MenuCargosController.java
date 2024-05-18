@@ -52,9 +52,36 @@ public class MenuCargosController implements Initializable {
     TableView tblCargos;
     
     @FXML
-    Button btnAgregar, btnRegresar, btnEditar;
+    Button btnAgregar, btnRegresar, btnEliminar, btnEditar, btnBuscar;
     
-    
+    @FXML
+    public void handleButtonAction(ActionEvent event){
+        if(event.getSource() == btnAgregar){
+            agregarCargo();
+            vaciarCampos();
+            cargarLista();
+        }else if(event.getSource() == btnRegresar){
+            stage.menuPrincipalView();
+        }else if(event.getSource() == btnEditar){
+            CargoDTO.getCargoDTO().setCargo((Cargo)tblCargos.getSelectionModel().getSelectedItem());
+            stage.formCargosView();
+        }else if(event.getSource() == btnEliminar){
+            int carId = ((Cargo)tblCargos.getSelectionModel().getSelectedItem()).getCargoId();
+            eliminarCargo(carId);
+            cargarLista();
+        }else if (event.getSource() == btnBuscar){
+            tblCargos.getItems().clear();
+            if(tfCargoId.getText().equals("")){
+                cargarLista();
+            }else{
+                tblCargos.getItems().add(buscarCargo());
+                colCargoId.setCellValueFactory(new PropertyValueFactory<Cargo, Integer>("cargoId"));
+                colNombre.setCellValueFactory(new PropertyValueFactory<Cargo, String>("nombreCargo"));
+                colDescripcion.setCellValueFactory(new PropertyValueFactory<Cargo, String>("descripcionCargo"));
+            }
+        }
+        
+    }
     
     public ObservableList<Cargo> listarCargos(){
         ArrayList<Cargo> cargos = new ArrayList<>();
@@ -131,20 +158,65 @@ public class MenuCargosController implements Initializable {
         
     }
      
-    @FXML
-    
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource() == btnAgregar){
-            agregarCargo();
-            vaciarCampos();
-            cargarLista();
-        }else if(event.getSource() == btnRegresar){
-            stage.menuPrincipalView();
-        }else if(event.getSource() == btnEditar){
-            CargoDTO.getCargoDTO().setCargo((Cargo)tblCargos.getSelectionModel().getSelectedItem());
-            stage.formCargosView();
+    public void eliminarCargo(int carId){
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_eliminarCargo(?)";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, carId);
+            statement.execute();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
+    
+    public Cargo buscarCargo(){
+        Cargo cargo = null;
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_buscarCargo(?)";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1 ,Integer.parseInt(tfCargoId.getText()));
+            resultset = statement.executeQuery();
+            
+            if(resultset.next()){
+                int cargoId = resultset.getInt("cargoId");
+                String nombreCargo = resultset.getString("nombreCargo");
+                String descripcionCargo = resultset.getString("descripcionCargo");
+                
+                cargo = (new Cargo(cargoId, nombreCargo, descripcionCargo));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultset != null){
+                    resultset.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return cargo;
+    }  
     
     public Main getStage() {
         return stage;
