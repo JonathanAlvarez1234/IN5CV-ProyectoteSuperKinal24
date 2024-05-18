@@ -147,6 +147,7 @@ public class MenuCargosController implements Initializable {
                                
             }catch(SQLException e){
                 System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }
