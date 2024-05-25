@@ -44,7 +44,7 @@ public class FormUsuarioController implements Initializable {
     @FXML
     ComboBox cmbEmpleados, cmbNivelAcceso;
     @FXML
-    Button btnRegistrar;
+    Button btnRegistrar, btnEmpleado;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,7 +55,45 @@ public class FormUsuarioController implements Initializable {
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnRegistrar){
             agregarUsuario();
+            stage.loginView();
+        }else if(event.getSource() == btnEmpleado){
+            stage.formEmpleadosView(3);
+            stage.formUsuarioView();
         }
+    }
+    
+    public ObservableList<NivelAcceso> listarNivelesAcceso(){
+        ArrayList<NivelAcceso> nivelesAcceso = new ArrayList<>();
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarNivelAcceso()";
+            statement = conexion.prepareStatement(sql);
+            resultset = statement.executeQuery();
+            
+            while(resultset.next()){
+                int nivelAccesoId = resultset.getInt("nivelAccesoId");
+                String nivelAcceso = resultset.getString("nivelAcceso");
+
+                nivelesAcceso.add(new NivelAcceso(nivelAccesoId, nivelAcceso));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultset != null){
+                    resultset.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return FXCollections.observableArrayList(nivelesAcceso);
     }
     
     public ObservableList<Empleado> listarEmpleados(){

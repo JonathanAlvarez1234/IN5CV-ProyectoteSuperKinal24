@@ -19,5 +19,6 @@
       <Button fx:id="btnRegistrar" layoutX="376.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Registrar" />
       <TextField fx:id="tfPass" layoutX="308.0" layoutY="240.0" prefHeight="30.0" prefWidth="223.0" style="-fx-background-radius: 20;" />
       <ComboBox fx:id="cmbNivelAcceso" layoutX="16.0" layoutY="609.0" prefWidth="223.0" />
+      <Button fx:id="btnEmpleado" layoutX="376.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Agregar Empleados" />
    </children>
 </AnchorPane>
