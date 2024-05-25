@@ -34,7 +34,8 @@ public class Main extends Application {
         Image icon = new Image("org/jonathanalvarez/image/Icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("Super Kinal APP");
-        menuPrincipalView();
+        loginView();
+        // minuto 3:39
         stage.show();
     }
     
@@ -227,6 +228,24 @@ public class Main extends Application {
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
+        }
+    }
+    
+    public void formUsuarioView(){
+        try{
+            FormUsuarioController formUsuarioView = (FormUsuarioController)switchScene("FormUsuarioView.fxlm", 550, 750);
+            formUsuarioView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void loginView(){
+        try{
+            LoginController loginView = (LoginController)switchScene("LoginView.fxml", 550, 750);
+            loginView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
    

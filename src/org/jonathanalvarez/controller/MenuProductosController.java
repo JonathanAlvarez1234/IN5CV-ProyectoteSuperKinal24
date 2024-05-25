@@ -103,6 +103,7 @@ public class MenuProductosController implements Initializable {
                 }else{
                     lblNombre.setText(producto.getNombreProducto());
                     tblProductos.getItems().add(buscarProducto());
+                     tblProductos.getItems().add(buscarProducto());
                     colProductoId.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("productoId"));
                     colNombre.setCellValueFactory(new PropertyValueFactory<Producto, String>("nombreProducto"));
                     colDescripcion.setCellValueFactory(new PropertyValueFactory<Producto, String>("descripcionProducto"));

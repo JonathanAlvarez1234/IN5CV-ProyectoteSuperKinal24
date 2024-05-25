@@ -700,6 +700,27 @@ create procedure sp_editarEncargado(empId int, encId int)
 					where empleadoId = empId;
 	END $$
 DELIMITER ;
+-- ==========================================================================================================================================================================
+-- ==========================================================================================================================================================================
+-- SP Agregar Usuario
+delimiter $$
+create procedure sp_agregarUsuario(us varchar(30), pas varchar(100), nivAId int, empId int)
+begin
+	insert into Usuarios(usuario, pass, nivelAccesoId, empleadoId) values
+		(us, pas, nivAId, empId);
+end $$
+delimiter ;
+
+-- SP Buscar Usuario
+delimiter $$
+create procedure sp_buscarUsuario(us varchar(30))
+begin
+	select * from Usuarios
+		where usuario = us;
+end $$
+delimiter ;
+-- ==========================================================================================================================================================================
+-- ==========================================================================================================================================================================
 
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCargo();
@@ -722,13 +743,12 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
+call sp_agregarEmpleado('Jonathan ','Alvarez',  4500.00, '08:00', '19:00' , 1,1);
 call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
 call sp_editarCliente(1,'2','2','2','2','2');
--- ----------------------------------------------------------------------------------------------
- 
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarTicketSoporte('Problemas con la red',1,null);
 -- ----------------------------------------------------------------------------------------------
@@ -741,6 +761,9 @@ call sp_agregarPromociones('50.00', 'Ahorra con la compra de La silla ',  '2024-
 call sp_editarPromociones(1,  '30.5','d','2024-03-03', '2024-03-03',1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarDetalleCompra();
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarUsuario('jalvarez', '1234', 1, 1);
  
+select * from NivelesAcceso;
  
 set global time_zone = '-6:00';

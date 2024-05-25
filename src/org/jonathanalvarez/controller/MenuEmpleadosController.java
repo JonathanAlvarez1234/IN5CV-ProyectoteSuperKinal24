@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -72,8 +73,8 @@ public class MenuEmpleadosController implements Initializable {
                 String nombreEmpleado = resultset.getString("nombreEmpleado");
                 String apellidoEmpleado = resultset.getString("apellidoEmpleado");
                 double sueldo = resultset.getDouble("sueldo");
-                String horaEntrada = resultset.getString("horaEntrada");
-                String horaSalida = resultset.getString("horaSalida");
+                Time horaEntrada = resultset.getTime("horaEntrada");
+                Time horaSalida = resultset.getTime("horaSalida");
                 String cargo = resultset.getString("cargoId");
                 String encargado = resultset.getString("encargadoId");
 
@@ -152,8 +153,8 @@ public class MenuEmpleadosController implements Initializable {
                 String nombreEmpleado = resultset.getString("nombreEmpleado");
                 String apellidoEmpleado = resultset.getString("apellidoEmpleado");
                 double sueldo = resultset.getDouble("sueldo");
-                String horaEntrada = resultset.getString("horaEntrada");
-                String horaSalida = resultset.getString("horaSalida");
+                Time horaEntrada = resultset.getTime("horaEntrada");
+                Time horaSalida = resultset.getTime("horaSalida");
                 String cargo = resultset.getString("cargoId");
                 String encargado = resultset.getString("encargadoId");
                 

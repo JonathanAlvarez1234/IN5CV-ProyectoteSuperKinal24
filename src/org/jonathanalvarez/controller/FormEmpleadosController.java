@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,8 +56,8 @@ public class FormEmpleadosController implements Initializable {
         tfNombre.setText(empleado.getNombreEmpleado());
         tfApellido.setText(empleado.getApellidoEmpleado());
         tfSueldo.setText(Double.toString(empleado.getSueldo()));
-        tfEntrada.setText(empleado.getHoraEntrada());
-        tfSalida.setText(empleado.getHoraSalida());
+        tfEntrada.setText(empleado.getHoraEntrada().toString());
+        tfSalida.setText(empleado.getHoraSalida().toString());
         tfCargo.setText(empleado.getCargo());
         tfEncargado.setText(empleado.getEncargado());
 

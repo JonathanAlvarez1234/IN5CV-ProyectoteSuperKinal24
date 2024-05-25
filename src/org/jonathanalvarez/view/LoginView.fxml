@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jonathanalvarez.controller.LoginController">
+   <children>
+      <ImageView fitHeight="850.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FondoFormLogin.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfUsuario" layoutX="164.0" layoutY="235.0" prefHeight="30.0" prefWidth="223.0" style="-fx-background-radius: 20;" />
+      <PasswordField fx:id="tfPass" layoutX="164.0" layoutY="359.0" prefHeight="30.0" prefWidth="223.0" style="-fx-background-radius: 20;" />
+      <Button fx:id="btnIniciar" layoutX="213.0" layoutY="509.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Iniciar sesión" />
+      <Button fx:id="btnRegistro" layoutX="213.0" layoutY="649.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Registrar usuario" />
+   </children>
+</AnchorPane>

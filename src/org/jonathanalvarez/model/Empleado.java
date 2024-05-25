@@ -5,6 +5,8 @@
  */
 package org.jonathanalvarez.model;
 
+import java.sql.Time;
+
 /**
  *
  * @author HP
@@ -14,10 +16,8 @@ public class Empleado {
     private String nombreEmpleado;
     private String apellidoEmpleado;
     private double sueldo;
-    //private LocalTime horaEntrada;
-    private String horaEntrada;
-    //private LocalTime horaSalida;
-    private String horaSalida;
+    private Time horaEntrada;
+    private Time horaSalida;
     private int cargoId;
     private String cargo;
     private int encargadoId;
@@ -26,7 +26,7 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, String horaEntrada, String horaSalida, int cargoId, int encargadoId) {
+    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, Time horaEntrada, Time horaSalida, int cargoId, int encargadoId) {
         this.empleadoId = empleadoId;
         this.nombreEmpleado = nombreEmpleado;
         this.apellidoEmpleado = apellidoEmpleado;
@@ -37,7 +37,7 @@ public class Empleado {
         this.encargadoId = encargadoId;
     }
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, String horaEntrada, String horaSalida, String cargo, String encargado) {
+    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, Time horaEntrada, Time horaSalida, String cargo, String encargado) {
         this.empleadoId = empleadoId;
         this.nombreEmpleado = nombreEmpleado;
         this.apellidoEmpleado = apellidoEmpleado;
@@ -82,19 +82,19 @@ public class Empleado {
         this.sueldo = sueldo;
     }
 
-    public String getHoraEntrada() {
+    public Time getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(String horaEntrada) {
+    public void setHoraEntrada(Time horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public String getHoraSalida() {
+    public Time getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(String horaSalida) {
+    public void setHoraSalida(Time horaSalida) {
         this.horaSalida = horaSalida;
     }
 
