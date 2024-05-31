@@ -34,8 +34,8 @@ public class Main extends Application {
         Image icon = new Image("org/jonathanalvarez/image/Icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("Super Kinal APP");
-        loginView();
-        // minuto 3:39
+        // loginView();
+        menuPrincipalView();
         stage.show();
     }
     

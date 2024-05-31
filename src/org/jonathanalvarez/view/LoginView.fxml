@@ -17,6 +17,6 @@
       <TextField fx:id="tfUsuario" layoutX="164.0" layoutY="235.0" prefHeight="30.0" prefWidth="223.0" style="-fx-background-radius: 20;" />
       <PasswordField fx:id="tfPass" layoutX="164.0" layoutY="359.0" prefHeight="30.0" prefWidth="223.0" style="-fx-background-radius: 20;" />
       <Button fx:id="btnIniciar" layoutX="213.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Iniciar sesión" />
-      <Button fx:id="btnRegistro" layoutX="213.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Registrar usuario" />
+      <Button fx:id="btnRegistro" disable="true" layoutX="213.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="125.0" style="-fx-background-radius: 5;" text="Registrar usuario" />
    </children>
 </AnchorPane>

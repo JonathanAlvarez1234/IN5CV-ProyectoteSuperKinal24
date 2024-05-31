@@ -6,7 +6,7 @@ before insert on Facturas
 for each row
 begin
 	declare validacion boolean;
-    set validacion = fn_verificarCliente(new.nit);
+    set validacion = fn_verificarCliente(new.clienteId);
     if !validacion then
 		signal sqlstate '45000'
 			set message_text = "La factura no se puede crear, porque el cliente no existe";
@@ -15,11 +15,11 @@ end $$
 delimiter ;
 
 delimiter $$
-create function fn_verificarCliente(nt int) returns boolean deterministic
+create function fn_verificarCliente(clidId int) returns boolean deterministic
 begin
 	declare flag boolean;
     declare verificacion int;
-    set verificacion = (select count(*) from Clientes where nit = nt);
+    set verificacion = (select count(*) from Clientes where clienteId = clidId);
     if verificacion = 1 then
 		set flag = true;
 	else
