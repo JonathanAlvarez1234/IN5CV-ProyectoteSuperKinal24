@@ -58,9 +58,7 @@ public class MenuPrincipalController implements Initializable{
             stage.menuPromocionView();
         }else if(event.getSource() == btnProductos){
             stage.menuProductoView();
-        }else if(event.getSource() == btnDetalleFacturas){
-            stage.menuDetalleFacturasView();
-        }   
+        }  
     }
 
 }

@@ -5,30 +5,44 @@
  */
 package org.jonathanalvarez.model;
 
+import java.sql.Date;
+import java.sql.Time;
+import org.jonathanalvarez.model.Factura;
 /**
  *
  * @author HP
  */
-public class DetalleFactura {
+public class DetalleFactura extends Factura{
     private int detalleFacturaId;
-    private int facturaId;
-    private String factura;
-    private int productoId;
     private String producto;
+    private int productoId;
+    private int facturaId;
+    private Double precioVentaUnitario;
 
-    public DetalleFactura() {
-    }
 
-    public DetalleFactura(int detalleFacturaId, String factura, String producto) {
-        this.detalleFacturaId = detalleFacturaId;
-        this.factura = factura;
-        this.producto = producto;
-    }
-
-    public DetalleFactura(int detalleFacturaId, int facturaId, int productoId) {
-        this.detalleFacturaId = detalleFacturaId;
+    public DetalleFactura(String producto, int facturaId, Date fecha, Time hora, String cliente, String empleado,Double total,  Double precioVentaUnitario) {
+        super(fecha, hora, cliente, empleado, total);
         this.facturaId = facturaId;
-        this.productoId = productoId;
+        this.producto = producto;
+        this.precioVentaUnitario = precioVentaUnitario;
+    }
+
+    public double getPrecioVentaUnitario() {
+        return precioVentaUnitario;
+    }
+
+    public void setPrecioVentaUnitario(double precioVentaUnitario) {
+        this.precioVentaUnitario = precioVentaUnitario;
+    }
+
+    
+    
+    public int getFacturaId() {
+        return facturaId;
+    }
+
+    public void setFacturaId(int facturaId) {
+        this.facturaId = facturaId;
     }
 
     public int getDetalleFacturaId() {
@@ -39,20 +53,12 @@ public class DetalleFactura {
         this.detalleFacturaId = detalleFacturaId;
     }
 
-    public int getFacturaId() {
-        return facturaId;
+    public String getProducto() {
+        return producto;
     }
 
-    public void setFacturaId(int facturaId) {
-        this.facturaId = facturaId;
-    }
-
-    public String getFactura() {
-        return factura;
-    }
-
-    public void setFactura(String factura) {
-        this.factura = factura;
+    public void setProducto(String producto) {
+        this.producto = producto;
     }
 
     public int getProductoId() {
@@ -63,17 +69,11 @@ public class DetalleFactura {
         this.productoId = productoId;
     }
 
-    public String getProducto() {
-        return producto;
-    }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
-    }
 
     @Override
     public String toString() {
-        return "DetalleFactura{" + "detalleFacturaId = " + detalleFacturaId + ", facturaId = " + facturaId + ", factura = " + factura + ", productoId=" + productoId + ", producto=" + producto + '}';
+        return String.valueOf(facturaId);
     }
     
     

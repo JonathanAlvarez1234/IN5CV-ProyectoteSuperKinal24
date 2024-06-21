@@ -13,22 +13,23 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class PasswordUtils {
     private static PasswordUtils instance;
-
-    private PasswordUtils() {
-    }
     
-    public static PasswordUtils getInstance(){
+    private PasswordUtils(){
+    
+    }
+
+    public static PasswordUtils getInstance() {
         if(instance == null){
             instance = new PasswordUtils();
         }
         return instance;
     }
     
-    public String encryptedPassword(String pass){
-        return BCrypt.hashpw(pass, BCrypt.gensalt());
+    public String encryptedPassword(String password){
+        return BCrypt.hashpw(password,BCrypt.gensalt());
     }
     
-    public boolean checkPassword(String pass, String encryptedPass){
-        return BCrypt.checkpw(pass, encryptedPass);
+    public Boolean checkPassword(String password, String encryptedPass){
+        return BCrypt.checkpw(password, encryptedPass);
     }
 }

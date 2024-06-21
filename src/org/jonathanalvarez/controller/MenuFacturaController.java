@@ -6,15 +6,15 @@
 package org.jonathanalvarez.controller;
 
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,15 +23,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.jonathanalvarez.dao.Conexion;
+import org.jonathanalvarez.dto.ProductoDTO;
 import org.jonathanalvarez.model.Cliente;
+import org.jonathanalvarez.model.DetalleFactura;
 import org.jonathanalvarez.model.Empleado;
 import org.jonathanalvarez.model.Factura;
+import org.jonathanalvarez.model.Producto;
+import org.jonathanalvarez.report.GenerarReporte;
 import org.jonathanalvarez.system.Main;
+import org.jonathanalvarez.utilis.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -44,285 +50,431 @@ public class MenuFacturaController implements Initializable {
     
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
-    private static ResultSet resultset = null;
+    private static ResultSet resultSet = null;
     
     @FXML
-    Button btnRegresar, btnGuardar, btnVaciar;
-    
+    Button btnRegresar, btnGuardar, btnVaciar, btnVerFactura, btnFactura;
     @FXML
-    TextField tfFacturaId, tfHora, tfTotal, tfFecha;
-    
+    TextField tfHora, tfTotal;
     @FXML
-    ComboBox cmbCliente, cmbEmpleado;
-    
+    ComboBox cmbFacturaId, cmbProductos, cmbClientes, cmbEmpleados;
     @FXML
     TableView tblFacturas;
-    
     @FXML
-    TableColumn colFacturaId, colCliente, colEmpleado, colFecha, colHora, colTotal;
-    
+    TableColumn colFacturaId, colProducto, colCliente, colEmpleado, colFecha, colHora, colTotal;
     @FXML
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource() == btnRegresar){
-            stage.menuPrincipalView();
-        }else if(event.getSource() == btnGuardar){
-            if(tfFacturaId.getText().equals("")){
-                agregarFacturas();
-                cargarDatos();
-            }else{
-                editarFacturas();
-            }
-        }else if(event.getSource() == btnVaciar){
-            vaciarCampos();
-        }
-    }
-    
-    
-    public void vaciarCampos(){
-        tfFecha.clear();
-        tfFacturaId.clear();
-        tfHora.clear();
-        tfTotal.clear();
-        cmbCliente.getSelectionModel().clearSelection();
-        cmbEmpleado.getSelectionModel().clearSelection();
-        
-    }
-    
-    public void cargarDatos(){
-        tblFacturas.setItems(listarFacturas());
-        colFacturaId.setCellValueFactory(new PropertyValueFactory<Factura, Integer>("facturaId"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<Factura, LocalDate>("fecha"));
-        colHora.setCellValueFactory(new PropertyValueFactory<Factura, LocalTime>("hora"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("clienteId"));
-        colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleadoId"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<Factura, Double>("total"));
-        tblFacturas.getSortOrder().add(colFacturaId);
-    }
-    
-    public void cargarDatosEditar(){
-        Factura fa = (Factura)tblFacturas.getSelectionModel().getSelectedItem();
-        if(fa != null){
-            tfFacturaId.setText(Integer.toString(fa.getFacturaId()));
-            cmbCliente.getSelectionModel().select(obtenerIndexCliente());
-            cmbEmpleado.getSelectionModel().select(obtenerIndexEmpleado());
-        }
-    }
-    
-    public int obtenerIndexCliente(){
-        int index = 0;
-        for(int i = 0 ; i <= cmbCliente.getItems().size() ; i++){
-            String clienteCmb = cmbCliente.getItems().get(i).toString();
-            String clienteTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItems()).getCliente();
-            if(clienteCmb.equals(clienteTbl)){
-                index = i;
-                break;
-            }
-            
-        }
-        return index;
-    }
-    
-    public int obtenerIndexEmpleado(){
-        int index = 0;
-        for(int i = 0 ; i <= cmbEmpleado.getItems().size() ; i++){
-            String empleadoCmb = cmbEmpleado.getItems().get(i).toString();
-            String empleadoTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItems()).getEmpleado();
-            if(empleadoCmb.equals(empleadoTbl)){
-                index = i;
-                break;
-            }
-            
-        }
-        return index;
-    }
-    
-    public ObservableList<Factura> listarFacturas(){
-        ArrayList<Factura> facturas = new ArrayList<>();
-        try{
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarFactura()";
-            statement = conexion.prepareStatement(sql);
-            resultset = statement.executeQuery();
-            
-            while(resultset.next()){
-                int facturaId = resultset.getInt("facturaId");
-                Date fecha = resultset.getDate("fecha");
-                Time hora = resultset.getTime("hora");
-                String cliente = resultset.getString("clienteId");
-                String empleado = resultset.getString("empleadoId");
-                Double total = resultset.getDouble("total");
+    DatePicker dpFecha;
 
-                
-                facturas.add(new Factura(facturaId, fecha.toLocalDate(), hora.toLocalTime(), cliente, empleado, total));
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
+        cmbFacturaId.setItems(listarFacturaIds());
+        cmbClientes.setItems(listarClientes());
+        cmbEmpleados.setItems(listarEmpleado());
+        cmbProductos.setItems(listarProducto());
+    }
+
+    public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnRegresar) {
+            stage.menuPrincipalView();
+        } else if (event.getSource() == btnGuardar) {
+            if (cmbFacturaId.getSelectionModel().getSelectedItem() == null) {
+                agregarFactura();
+                cmbFacturaId.setItems(listarFacturaIds());
+                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+            } else {
+                agregarDetalleFactura();
+                cmbFacturaId.setItems(listarFacturaIds());
+                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
             }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultset != null){
-                    resultset.close();
+
+        } else if (event.getSource() == btnVaciar) {
+            vaciarCampos();
+        } else if (event.getSource() == btnVerFactura) {
+            GenerarReporte.getInstance().generarFactura(((Factura) tblFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
+        } else if (event.getSource() == btnFactura) {
+            cargarDatos();
+        }
+    }
+
+    public int obtenerIndexEmpleado() {
+        int index = 0;
+        for (int i = 0; i < cmbEmpleados.getItems().size(); i++) {
+            String empleadoCmb = cmbEmpleados.getItems().get(i).toString();
+            String facturasTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getEmpleado();
+            if (empleadoCmb.equals(facturasTbl)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int obtenerIndexCliente() {
+        int index = 0;
+        for (int i = 0; i < cmbClientes.getItems().size(); i++) {
+            String clienteCmb = cmbClientes.getItems().get(i).toString();
+            String facturasTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getCliente();
+            if (clienteCmb.equals(facturasTbl)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int obtenerIndexProducto() {
+        int index = 0;
+        for (int i = 0; i < cmbProductos.getItems().size(); i++) {
+            String productoCmb = cmbProductos.getItems().get(i).toString();
+            String facturasTbl = ((DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem()).getProducto();
+            if (productoCmb.equals(facturasTbl)) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public int obtenerIndexFactura() {
+        int index = 0;
+        Object selectedItem = tblFacturas.getSelectionModel().getSelectedItem();
+
+        if (selectedItem instanceof DetalleFactura) {
+            int facturaTbl = ((DetalleFactura) selectedItem).getFacturaId();
+
+            ObservableList<Factura> facturasList = cmbFacturaId.getItems();
+            for (int i = 0; i < facturasList.size(); i++) {
+                Factura facturaCmb = facturasList.get(i);
+                if (facturaCmb.getFacturaId() == facturaTbl) {
+                    index = i;
+                    break;
                 }
-                if(statement != null){
+            }
+        }
+
+        return index;
+    }
+
+    public void cargarDatos() {
+        Factura facturaSeleccionada = (Factura) cmbFacturaId.getSelectionModel().getSelectedItem();
+
+        if (facturaSeleccionada != null) {
+            int facturaIdSeleccionada = facturaSeleccionada.getFacturaId();
+
+            tblFacturas.setItems(listarFactura(facturaIdSeleccionada));
+            colFacturaId.setCellValueFactory(new PropertyValueFactory<>("facturaId"));
+            colProducto.setCellValueFactory(new PropertyValueFactory<>("producto"));
+            colCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+            colEmpleado.setCellValueFactory(new PropertyValueFactory<>("empleado"));
+            colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+            colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
+            colTotal.setCellValueFactory(new PropertyValueFactory<>("precioVentaUnitario"));
+        tfTotal.setText(Double.toString(facturaSeleccionada.getTotal()));
+        dpFecha.setValue(facturaSeleccionada.getFecha().toLocalDate());
+        tfHora.setText(facturaSeleccionada.getHora().toString());
+        }
+    }
+
+    public void cargarDatosEditar() {
+        DetalleFactura DF = (DetalleFactura) tblFacturas.getSelectionModel().getSelectedItem();
+        if (DF != null) {
+            cmbFacturaId.getSelectionModel().select(obtenerIndexFactura());
+            cmbEmpleados.getSelectionModel().select(obtenerIndexEmpleado());
+            cmbClientes.getSelectionModel().select(obtenerIndexCliente());
+            cmbProductos.getSelectionModel().select(obtenerIndexProducto());
+            dpFecha.setValue(DF.getFecha().toLocalDate());
+            tfHora.setText(DF.getHora().toString());
+            tfTotal.setText(Double.toString(DF.getTotal()));
+        }
+    }
+
+    public ObservableList<Producto> listarProducto() {
+        ArrayList<Producto> productos = new ArrayList<>();
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_ListarProducto()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int productoId = resultSet.getInt("productoId");
+                String nombre = resultSet.getString("nombreProducto");
+                String descripcion = resultSet.getString("descripcionProducto");
+                int cantidad = resultSet.getInt("cantidadStock");
+                Double precioU = resultSet.getDouble("precioVentaUnitario");
+                Double precioM = resultSet.getDouble("precioVentaMayor");
+                Double precioCompra = resultSet.getDouble("precioCompra");
+                Blob imagen = resultSet.getBlob("imagenProducto");
+                String distribuidorId = resultSet.getString("distribuidor");
+                String categoriaProductoId = resultSet.getString("categoriaProducto");
+
+                productos.add(new Producto(productoId, nombre, descripcion, cantidad, precioU, precioM, precioCompra, imagen, distribuidorId, categoriaProductoId));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
-                
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+
             }
         }
-        
-        return FXCollections.observableList(facturas);
+        return FXCollections.observableList(productos);
     }
-    
-    public ObservableList<Cliente> listarClientes(){
+
+    public ObservableList<Cliente> listarClientes() {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        try{
+
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarCliente()";
             statement = conexion.prepareStatement(sql);
-            resultset = statement.executeQuery();
-            
-            while(resultset.next()){
-                int clienteId = resultset.getInt("clienteId");
-                String nombre = resultset.getString("nombre");
-                String apellido = resultset.getString("apellido");
-                String telefono = resultset.getString("telefono");
-                String direccion = resultset.getString("direccion");
-                String nit = resultset.getString("nit");
-                
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int clienteId = resultSet.getInt("clienteId");
+                String nombre = resultSet.getString("nombre");
+                String apellido = resultSet.getString("apellido");
+                String telefono = resultSet.getString("telefono");
+                String direccion = resultSet.getString("direccion");
+                String nit = resultSet.getString("nit");
+
                 clientes.add(new Cliente(clienteId, nombre, apellido, telefono, direccion, nit));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultset != null){
-                    resultset.close();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                
+
             }
         }
         return FXCollections.observableList(clientes);
     }
-    
-    public ObservableList<Empleado> listarEmpleados(){
-        ArrayList<Empleado> empleados = new ArrayList<>();
-        try{
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleado()";
-            statement = conexion.prepareStatement(sql);
-            resultset = statement.executeQuery();
-            
-            while(resultset.next()){
-                int empleadoId = resultset.getInt("empleadoId");
-                String nombreEmpleado = resultset.getString("nombreEmpleado");
-                String apellidoEmpleado = resultset.getString("apellidoEmpleado");
-                double sueldo = resultset.getDouble("sueldo");
-                Time horaEntrada = resultset.getTime("horaEntrada");
-                Time horaSalida = resultset.getTime("horaSalida");
-                String cargo = resultset.getString("cargoId");
-                String encargado = resultset.getString("encargadoId");
 
-                empleados.add(new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
+    public ObservableList<Empleado> listarEmpleado() {
+        ArrayList<Empleado> empleados = new ArrayList<>();
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_ListarEmpleado()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int empleadoId = resultSet.getInt("empleadoId");
+                String nombre = resultSet.getString("nombreEmpleado");
+                String apellido = resultSet.getString("apellidoEmpleado");
+                Double sueldo = resultSet.getDouble("Sueldo");
+                Time horaE = resultSet.getTime("horaEntrada");
+                Time horaS = resultSet.getTime("horaSalida");
+                String cargo = resultSet.getString("Cargo");
+                String encargado = resultSet.getString("Encargado");
+                empleados.add(new Empleado(empleadoId, nombre, apellido, sueldo, horaE, horaS, cargo, encargado));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultset != null){
-                    resultset.close();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                
+
             }
         }
         return FXCollections.observableList(empleados);
     }
-    
-    public void agregarFacturas(){
-        try{
+
+    public ObservableList<DetalleFactura> listarFactura(int facturaIdSeleccionada) {
+        ArrayList<DetalleFactura> factura = new ArrayList<>();
+
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarFactura(?, ?, ?, ?, ?)";
+            String sql = "call sp_ListarDetalleFactura(?)";
             statement = conexion.prepareStatement(sql);
-            statement.setDate(1, Date.valueOf(LocalDate.now()));
-            statement.setTime(2, Time.valueOf(LocalTime.now()));
-            statement.setInt(3, ((Cliente)cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(4, ((Empleado)cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
-            statement.setDouble(5, 0);
-            
-            statement.execute();
-        }catch(SQLException e){
+            statement.setInt(1, facturaIdSeleccionada);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int facturaId = resultSet.getInt("facturaId");
+                String producto = resultSet.getString("Producto");
+                String cliente = resultSet.getString("Cliente");
+                String empleado = resultSet.getString("Empleado");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                Double precio = resultSet.getDouble("precioVentaUnitario");
+                Double total = resultSet.getDouble("total");
+                factura.add(new DetalleFactura(producto, facturaId, fecha, hora, cliente, empleado, total, precio));
+            }
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(statement != null){
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-                               
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
+        return FXCollections.observableList(factura);
     }
-    
-    public void editarFacturas(){
-        try{
+
+    public ObservableList<Factura> listarFacturaIds() {
+        ArrayList<Factura> facturas = new ArrayList<>();
+
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarFactura(?, ?, ?, ?, ?, ?)";
+            String sql = "call sp_listarFactura()";
             statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(tfFacturaId.getText()));
-            statement.setDate(2, Date.valueOf(tfFecha.getText()));
-            statement.setTime(3, Time.valueOf(tfHora.getText()));
-            statement.setInt(4, ((Cliente)cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(5, ((Empleado)cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
-            statement.setDouble(6, 0);
-            statement.execute();
-        }catch(SQLException e){
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int facturaId = resultSet.getInt("facturaId");
+                int cliente = resultSet.getInt("clienteId");
+                int empleado = resultSet.getInt("empleadoId");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                Double total = resultSet.getDouble("total");
+                facturas.add(new Factura(facturaId, fecha, hora, cliente, empleado, total));
+            }
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(conexion != null){
-                conexion.close();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-            }catch(SQLException e){
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
+        ObservableList<Factura> observableFacturas = FXCollections.observableList(facturas);
+        return observableFacturas;
     }
-     
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        cmbCliente.setItems(listarClientes());
-        cmbEmpleado.setItems(listarEmpleados());
-        cargarDatos();
-        tfFecha.setText(LocalDate.now().toString());
 
-        tfHora.setText(LocalTime.now().toString());
-    }  
-    
+    public void agregarDetalleFactura() {
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_agregarDetalleFactura(?, ?)";
+            statement = conexion.prepareStatement(sql);
+            Factura facturaSeleccionada = (Factura) cmbFacturaId.getSelectionModel().getSelectedItem();
+            Producto productoSeleccionado = (Producto) cmbProductos.getSelectionModel().getSelectedItem();
+            if (facturaSeleccionada != null && productoSeleccionado != null) {
+                Integer facturaId = facturaSeleccionada.getFacturaId();
+                Integer productoId = productoSeleccionado.getProductoId();
+                statement.setInt(1, facturaId);
+                statement.setInt(2, productoId);
+                statement.execute();
+                cmbFacturaId.setItems(listarFacturaIds());
+                cmbFacturaId.getSelectionModel().select(facturaSeleccionada);
+            }
+
+            cargarDatos();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+
+    public void agregarFactura() {
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_agregarFactura(?,?,?)";
+            statement = conexion.prepareStatement(sql);
+            Cliente clienteSeleccionado = (Cliente) cmbClientes.getSelectionModel().getSelectedItem();
+            Empleado empleadoSeleccionado = (Empleado) cmbEmpleados.getSelectionModel().getSelectedItem();
+            Producto productoSeleccionado = (Producto) cmbProductos.getSelectionModel().getSelectedItem();
+
+            if (clienteSeleccionado != null && empleadoSeleccionado != null && productoSeleccionado != null) {
+                statement.setInt(1, clienteSeleccionado.getClienteId());
+                statement.setInt(2, empleadoSeleccionado.getEmpleadoId());
+                statement.setInt(3, productoSeleccionado.getProductoId());
+                statement.execute();
+
+                cmbFacturaId.setItems(listarFacturaIds());
+                cmbFacturaId.getSelectionModel().selectLast();
+                cargarDatos();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+
+    public void vaciarCampos() {
+        tfHora.clear();
+        tfTotal.clear();
+        dpFecha.setValue(null);
+        cmbFacturaId.getSelectionModel().clearSelection();
+        cmbProductos.getSelectionModel().clearSelection();
+        cmbClientes.getSelectionModel().clearSelection();
+        cmbEmpleados.getSelectionModel().clearSelection();
+        tblFacturas.setItems(FXCollections.observableArrayList());
+    }
+
     public Main getStage() {
         return stage;
     }

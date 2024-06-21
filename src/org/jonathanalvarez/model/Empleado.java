@@ -13,40 +13,39 @@ import java.sql.Time;
  */
 public class Empleado {
     private int empleadoId;
-    private String nombreEmpleado;
-    private String apellidoEmpleado;
-    private double sueldo;
-    private Time horaEntrada;
-    private Time horaSalida;
-    private int cargoId;
-    private String cargo;
+    private String nombre;
+    private String apellido;
+    private Double sueldo;
+    private Time HoraEntrada;
+    private Time HoraSalida;
+    private int nombreCargoId;
     private int encargadoId;
+    private String nombreCargo;
     private String encargado;
 
-    public Empleado() {
-    }
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, Time horaEntrada, Time horaSalida, int cargoId, int encargadoId) {
+    public Empleado(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, int nombreCargoId, int encargadoId) {
         this.empleadoId = empleadoId;
-        this.nombreEmpleado = nombreEmpleado;
-        this.apellidoEmpleado = apellidoEmpleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.sueldo = sueldo;
-        this.horaEntrada = horaEntrada;
-        this.horaSalida = horaSalida;
-        this.cargoId = cargoId;
+        this.HoraEntrada = HoraEntrada;
+        this.HoraSalida = HoraSalida;
+        this.nombreCargoId = nombreCargoId;
         this.encargadoId = encargadoId;
     }
 
-    public Empleado(int empleadoId, String nombreEmpleado, String apellidoEmpleado, double sueldo, Time horaEntrada, Time horaSalida, String cargo, String encargado) {
+    public Empleado(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, String nombreCargo, String encargado) {
         this.empleadoId = empleadoId;
-        this.nombreEmpleado = nombreEmpleado;
-        this.apellidoEmpleado = apellidoEmpleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.sueldo = sueldo;
-        this.horaEntrada = horaEntrada;
-        this.horaSalida = horaSalida;
-        this.cargo = cargo;
+        this.HoraEntrada = HoraEntrada;
+        this.HoraSalida = HoraSalida;
+        this.nombreCargo = nombreCargo;
         this.encargado = encargado;
     }
+
     
     
 
@@ -58,52 +57,52 @@ public class Empleado {
         this.empleadoId = empleadoId;
     }
 
-    public String getNombreEmpleado() {
-        return nombreEmpleado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreEmpleado(String nombreEmpleado) {
-        this.nombreEmpleado = nombreEmpleado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getApellidoEmpleado() {
-        return apellidoEmpleado;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setApellidoEmpleado(String apellidoEmpleado) {
-        this.apellidoEmpleado = apellidoEmpleado;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public double getSueldo() {
+    public Double getSueldo() {
         return sueldo;
     }
 
-    public void setSueldo(double sueldo) {
+    public void setSueldo(Double sueldo) {
         this.sueldo = sueldo;
     }
 
     public Time getHoraEntrada() {
-        return horaEntrada;
+        return HoraEntrada;
     }
 
-    public void setHoraEntrada(Time horaEntrada) {
-        this.horaEntrada = horaEntrada;
+    public void setHoraEntrada(Time HoraEntrada) {
+        this.HoraEntrada = HoraEntrada;
     }
 
     public Time getHoraSalida() {
-        return horaSalida;
+        return HoraSalida;
     }
 
-    public void setHoraSalida(Time horaSalida) {
-        this.horaSalida = horaSalida;
+    public void setHoraSalida(Time HoraSalida) {
+        this.HoraSalida = HoraSalida;
     }
 
     public int getCargoId() {
-        return cargoId;
+        return nombreCargoId;
     }
 
-    public void setCargoId(int cargoId) {
-        this.cargoId = cargoId;
+    public void setCargoId(int nombreCargoId) {
+        this.nombreCargoId = nombreCargoId;
     }
 
     public int getEncargadoId() {
@@ -115,11 +114,11 @@ public class Empleado {
     }
 
     public String getCargo() {
-        return cargo;
+        return nombreCargo;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setCargo(String nombreCargo) {
+        this.nombreCargo = nombreCargo;
     }
 
     public String getEncargado() {
@@ -132,7 +131,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Id :" + empleadoId + " - " + nombreEmpleado;
+        return "Id: " + empleadoId + " | " + nombre + " " + apellido;
     }
     
     

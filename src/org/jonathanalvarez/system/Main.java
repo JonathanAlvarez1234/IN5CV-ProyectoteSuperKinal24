@@ -10,11 +10,29 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.jonathanalvarez.controller.* ;
+import org.jonathanalvarez.controller.FormCargosController;
+import org.jonathanalvarez.controller.FormCategoriaProductosController;
+import org.jonathanalvarez.controller.FormClientesController;
+import org.jonathanalvarez.controller.MenuCargosController;
+import org.jonathanalvarez.controller.MenuCategoriaProductosController;
+import org.jonathanalvarez.controller.MenuClientesController;
+import org.jonathanalvarez.controller.MenuPrincipalController;
+import org.jonathanalvarez.controller.MenuTicketSoporteController;
+import org.jonathanalvarez.controller.MenuDistribuidoresController;
+import org.jonathanalvarez.controller.FormDistribuidoresController;
+import org.jonathanalvarez.controller.FormProductosController;
+import org.jonathanalvarez.controller.FormUsuarioController;
+import org.jonathanalvarez.controller.LoginController;
+import org.jonathanalvarez.controller.MenuComprasController;
+import org.jonathanalvarez.controller.MenuFacturaController;
+import org.jonathanalvarez.controller.MenuEmpleadosController;
+import org.jonathanalvarez.controller.MenuProductosController;
+import org.jonathanalvarez.controller.MenuPromocionesController;
 
 
 
@@ -35,7 +53,7 @@ public class Main extends Application {
         stage.getIcons().add(icon);
         stage.setTitle("Super Kinal APP");
         // loginView();
-        menuPrincipalView();
+         menuPrincipalView();
         stage.show();
     }
     
@@ -170,14 +188,13 @@ public class Main extends Application {
         }
     }
     
-    public void formEmpleadosView(int op){
+    public void FormProductosView(int op){
         try{
-            FormEmpleadosController formEmpleadosView = (FormEmpleadosController)switchScene("FormEmpleadosView.fxml", 550, 850);
-            formEmpleadosView.setOp(op);
-            formEmpleadosView.setStage(this);
+            FormProductosController formProductosView = (FormProductosController)switchScene("FormProductosView.fxml", 1100, 625);
+            formProductosView.setOp(op);
+            formProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     
@@ -221,15 +238,6 @@ public class Main extends Application {
         }
     }
     
-    public void menuDetalleFacturasView(){
-        try{
-            MenuDetalleFacturaController menuDetalleFacturasView = (MenuDetalleFacturaController)switchScene("MenuDetalleFacturaView", 1200, 750);
-            menuDetalleFacturasView.setStage(this);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
     
     public void formUsuarioView(){
         try{

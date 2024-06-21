@@ -61,25 +61,25 @@ create table CategoriaProductos(
     descripcionCategoria varchar(100) not null,
     Primary key PK_categoriaProductoId(categoriaProductoId)
 );
-create table Productos(
+create table Productos(  
 	productoId int not null auto_increment,
-    nombreProducto varchar(50),
-    descripcionProducto varchar(100) not null,
+    nombreProducto varchar(50)not null,
+    descripcionProducto varchar(100),
     cantidadStock int not null,
-    precioVentaUnitario decimal(10, 2) not null,
-    precioVentaMayor decimal(10, 2) not null,
-    precioCompra decimal(10, 2) not null,
-    imagenProducto blob,
+    precioVentaUnitario decimal(10,2) not null,
+    precioVentaMayor decimal(10,2)not null,
+    precioCompra decimal(10,2)not null,
+    imagenProducto LONGBLOB,
     distribuidorId int not null,
     categoriaProductoId int not null,
     primary key PK_productoId(productoId),
-    constraint FK_Productos_Distribuidores foreign key Distribuidores(distribuidorId)
-	references Distribuidores(distribuidorId),
-    constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos(categoriaProductoId)
-		references CategoriaProductos (categoriaProductoId)
+    constraint FK_Productos_Distribuidores foreign key(distribuidorId)
+		references Distribuidores(distribuidorId),
+	constraint FK_Productos_CategoriaProductos foreign key(categoriaProductoId)
+		references CategoriaProductos(categoriaProductoId)
 );
  
-create table DetalleCompras(
+create table DetalleCompra(
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,
     productoId int not null,

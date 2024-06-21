@@ -30,9 +30,7 @@ import org.jonathanalvarez.utilis.SuperKinalAlert;
  */
 public class LoginController implements Initializable {
     private Main stage;
-    
     private int op = 0;
-    
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
@@ -42,84 +40,89 @@ public class LoginController implements Initializable {
     @FXML
     PasswordField tfPass;
     @FXML
-    Button btnIniciar, btnRegistro;
-    
-    @FXML
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource() == btnIniciar){
-            Usuario usuario = buscarUsuario();
-            if(op == 0){
-                if(usuario != null){
-                    if(PasswordUtils.getInstance().checkPassword(tfPass.getText(), usuario.getPass())){
-                        SuperKinalAlert.getInstance().alertaSaludo(usuario.getUsuario());
-                        if(usuario.getNivelAccesoId() == 1){
-                            btnRegistro.setDisable(false);
-                            btnIniciar.setText("Ir al menu");
-                            op = 1;
-                        }else if(usuario.getNivelAccesoId() == 2){
-                            stage.menuPrincipalView();
-                        }
-                    }else{
-                        SuperKinalAlert.getInstance().mostrarAlertaInfo(005);
-                    }
-                }else{
-                    SuperKinalAlert.getInstance().mostrarAlertaInfo(602);
-                }
-            }else{
-                stage.menuPrincipalView();
-            }
-        }else if(event.getSource() == btnRegistro){
-            stage.formUsuarioView();
-        }
-    }
-    
+    Button btnIniciar, btnRegistrar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    public Usuario buscarUsuario(){
-        Usuario usuario = null;
-        try{
+    }
+
+    public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnIniciar) {
+            if (op == 0) {
+                Usuario usuario = buscarUsuario();
+                if (usuario != null) {
+                    if (PasswordUtils.getInstance().checkPassword(tfPass.getText(), usuario.getPass())) {
+                        if (usuario.getNivelAccesoId() == 1) {
+                            btnRegistrar.setDisable(false);
+                            btnIniciar.setText("Ir al menu");
+                            op = 1;
+                        } else if (usuario.getNivelAccesoId() == 2) {
+                            stage.menuPrincipalView();
+                            SuperKinalAlert.getInstance().alertaSaludo(usuario.getUsuario());
+                        }
+                    } else {
+                        SuperKinalAlert.getInstance().mostrarAlertaInfo(403);
+                    }
+
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(402);
+                }
+
+            } else {
+                Usuario usuario = buscarUsuario();
+                stage.menuPrincipalView();
+                SuperKinalAlert.getInstance().alertaSaludo(usuario.getUsuario());
+            }
+
+        } else if (event.getSource() == btnRegistrar) {
+            stage.formUsuarioView();
+        }
+    }
+
+    public Usuario buscarUsuario() {
+        Usuario usuarios = null;
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_buscarUsuario(?)";
             statement = conexion.prepareStatement(sql);
-            statement.setString(1 ,tfUsuario.getText());
+            statement.setString(1, tfUsuario.getText());
             resultSet = statement.executeQuery();
-            
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 int usuarioId = resultSet.getInt("usuarioId");
-                String user = resultSet.getString("usuario");
-                String contrasenia = resultSet.getString("pass");
+                String usuario = resultSet.getString("usuario");
+                String pass = resultSet.getString("pass");
                 int nivelAccesoId = resultSet.getInt("nivelAccesoId");
                 int empleadoId = resultSet.getInt("empleadoId");
-                
-                usuario = new Usuario(usuarioId, user, contrasenia, nivelAccesoId, empleadoId);
+
+                usuarios = new Usuario(usuarioId, usuario, pass, nivelAccesoId, empleadoId);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultSet != null){
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-        
-        return usuario;
+        return usuarios;
+    }
+
+    public Main getStage() {
+        return stage;
     }
 
     public void setStage(Main stage) {
         this.stage = stage;
     }
-    
-    
+
 }

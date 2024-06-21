@@ -33,60 +33,97 @@ import org.jonathanalvarez.utilis.PasswordUtils;
  * @author HP
  */
 public class FormUsuarioController implements Initializable {
-    private Main stage;
-    
-    private static Connection conexion = null;
-    private static PreparedStatement statement = null;
-    private static ResultSet resultset = null;
-    
+
     @FXML
     TextField tfUsuario, tfPass;
     @FXML
-    ComboBox cmbEmpleados, cmbNivelAcceso;
+    ComboBox cmbEmpleados, cmbNivel;
     @FXML
-    Button btnRegistrar, btnEmpleado;
-    
+    Button btnRegresar, btnRegistrar, btnEmpleados;
+    private Main stage;
+    private static Connection conexion = null;
+    private static PreparedStatement statement = null;
+    private static ResultSet resultSet = null; 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        cmbEmpleados.setItems(listarEmpleado());
+        cmbNivel.setItems(listarNivelesAcceso());
     }    
     
-    @FXML
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnRegistrar){
             agregarUsuario();
             stage.loginView();
-        }else if(event.getSource() == btnEmpleado){
-            stage.formEmpleadosView(3);
-            stage.formUsuarioView();
+        }else if(event.getSource() == btnEmpleados){
+            stage.menuEmpleadosView();
+        }else if(event.getSource() == btnRegresar){
+            stage.loginView();
         }
     }
+    public ObservableList<Empleado> listarEmpleado() {
+        ArrayList<Empleado> empleados = new ArrayList<>();
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarEmpleado()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int empleadoId = resultSet.getInt("empleadoId");
+                String nombre = resultSet.getString("nombreEmpleado");
+                String apellido = resultSet.getString("apellidoEmpleado");
+                Double sueldo = resultSet.getDouble("Sueldo");
+                Time horaE = resultSet.getTime("horaEntrada");
+                Time horaS = resultSet.getTime("horaSalida");
+                String cargo = resultSet.getString("Cargo");
+                String encargado = resultSet.getString("Encargado");
+                empleados.add(new Empleado(empleadoId, nombre, apellido, sueldo, horaE, horaS, cargo, encargado));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+        return FXCollections.observableList(empleados);
+    }
     
-    public ObservableList<NivelAcceso> listarNivelesAcceso(){
-        ArrayList<NivelAcceso> nivelesAcceso = new ArrayList<>();
+    public ObservableList<NivelAcceso>listarNivelesAcceso(){
+        ArrayList <NivelAcceso>nivelesAcceso = new ArrayList<>();
+        
         try{
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarNivelAcceso()";
             statement = conexion.prepareStatement(sql);
-            resultset = statement.executeQuery();
-            
-            while(resultset.next()){
-                int nivelAccesoId = resultset.getInt("nivelAccesoId");
-                String nivelAcceso = resultset.getString("nivelAcceso");
-
+            resultSet  = statement.executeQuery();
+            while(resultSet.next()){
+                int nivelAccesoId = resultSet.getInt("NivelAccesoId");
+                String nivelAcceso = resultSet.getString("NivelAcceso");
                 nivelesAcceso.add(new NivelAcceso(nivelAccesoId, nivelAcceso));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
             try{
-                if(resultset != null){
-                    resultset.close();
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
             }catch(SQLException e){
@@ -96,47 +133,6 @@ public class FormUsuarioController implements Initializable {
         return FXCollections.observableArrayList(nivelesAcceso);
     }
     
-    public ObservableList<Empleado> listarEmpleados(){
-        ArrayList<Empleado> empleados = new ArrayList<>();
-        try{
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleado()";
-            statement = conexion.prepareStatement(sql);
-            resultset = statement.executeQuery();
-            
-            while(resultset.next()){
-                int empleadoId = resultset.getInt("empleadoId");
-                String nombreEmpleado = resultset.getString("nombreEmpleado");
-                String apellidoEmpleado = resultset.getString("apellidoEmpleado");
-                double sueldo = resultset.getDouble("sueldo");
-                Time horaEntrada = resultset.getTime("horaEntrada");
-                Time horaSalida = resultset.getTime("horaSalida");
-                String cargo = resultset.getString("cargoId");
-                String encargado = resultset.getString("encargadoId");
-
-                empleados.add(new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultset != null){
-                    resultset.close();
-                }
-                if(statement != null){
-                    statement.close();
-                }
-                if(conexion != null){
-                    conexion.close();
-                }
-            }catch(SQLException e){
-                System.out.println(e.getMessage());
-                
-            }
-        }
-        return FXCollections.observableList(empleados);
-    }
-    
     public void agregarUsuario(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
@@ -144,28 +140,32 @@ public class FormUsuarioController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfUsuario.getText());
             statement.setString(2, PasswordUtils.getInstance().encryptedPassword(tfPass.getText()));
-            statement.setInt(3, ((NivelAcceso)cmbNivelAcceso.getSelectionModel().getSelectedItem()).getNivelAccesoId());
+            statement.setInt(3, ((NivelAcceso)cmbNivel.getSelectionModel().getSelectedItem()).getNivelAccesoId());
             statement.setInt(4, ((Empleado)cmbEmpleados.getSelectionModel().getSelectedItem()).getEmpleadoId());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
-            try{
-                if(statement != null){
+            try {
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
             }
         }
     }
     
+    public Main getStage() {
+        return stage;
+    }
+
     public void setStage(Main stage) {
         this.stage = stage;
-    }
+    }  
     
 }

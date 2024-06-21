@@ -5,8 +5,8 @@
  */
 package org.jonathanalvarez.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -14,39 +14,61 @@ import java.time.LocalTime;
  */
 public class Factura {
     private int facturaId;
-    private LocalDate fecha;
-    private LocalTime hora;
-    private double total;
+    private Date fecha;
+    private Time hora;
     private int clienteId;
-    private String cliente;
     private int empleadoId;
+    private Double total;
+    private String cliente;
     private String empleado;
+    private String factura;
 
-    public Factura() {
-    }
-
-    public Factura(int facturaId, LocalDate fecha, LocalTime hora, double total, int clienteId, int empleadoId) {
-        this.facturaId = facturaId;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.total = total;
-        this.clienteId = clienteId;
-        this.empleadoId = empleadoId;
-    }
-
-    public Factura(int facturaId,  LocalDate fecha, LocalTime hora, String cliente, String empleado, double total) {
-        this.facturaId = facturaId;
+    public Factura(Date fecha, Time hora, String cliente, String empleado, Double total) {
         this.fecha = fecha;
         this.hora = hora;
         this.cliente = cliente;
         this.empleado = empleado;
         this.total = total;
-
- 
     }
+    public Factura(Date fecha, Time hora, String cliente, String empleado) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.empleado = empleado;
+    }
+
+    public Factura(int facturaId, Date fecha, Time hora, int clienteId, int empleadoId, Double total) {
+        this.facturaId = facturaId;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.clienteId = clienteId;
+        this.empleadoId = empleadoId;
+        this.total = total;
+    }
+
     
-    
-    
+    public Factura(String factura, Date fecha, Time hora, String cliente, String empleado, Double total) {
+        this.factura = factura;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.empleado = empleado;
+        this.total = total;
+    }
+
+    public Factura(Date fecha, Time hora, int clienteId, int empleadoId, Double total, String cliente, String empleado) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.clienteId = clienteId;
+        this.empleadoId = empleadoId;
+        this.total = total;
+        this.cliente = cliente;
+        this.empleado = empleado;
+    }
+
+    public Factura(String factura) {
+        this.factura = factura;
+    }
 
     public int getFacturaId() {
         return facturaId;
@@ -56,28 +78,20 @@ public class Factura {
         this.facturaId = facturaId;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public Time getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(Time hora) {
         this.hora = hora;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
     }
 
     public int getClienteId() {
@@ -88,20 +102,28 @@ public class Factura {
         this.clienteId = clienteId;
     }
 
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
     public int getEmpleadoId() {
         return empleadoId;
     }
 
     public void setEmpleadoId(int empleadoId) {
         this.empleadoId = empleadoId;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public String getEmpleado() {
@@ -112,9 +134,17 @@ public class Factura {
         this.empleado = empleado;
     }
 
+    public String getFactura() {
+        return factura;
+    }
+
+    public void setFactura(String factura) {
+        this.factura = factura;
+    }
+
     @Override
     public String toString() {
-        return "Factura{" + "facturaId=" + facturaId + ", fecha=" + fecha + ", hora=" + hora + ", total=" + total + ", clienteId=" + clienteId + ", cliente=" + cliente + ", empleadoId=" + empleadoId + ", empleado=" + empleado + '}';
+        return String.valueOf(facturaId);
     }
 
     
